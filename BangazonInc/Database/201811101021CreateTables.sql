@@ -1,8 +1,8 @@
 CREATE TABLE Customers 
 (
 	id int PRIMARY KEY,
-	first varchar(255),
-	last varchar(255),
+	firstName varchar(255),
+	lastName varchar(255),
 	createdAt datetime,
 	isActive bit
 );
@@ -10,8 +10,8 @@ CREATE TABLE Customers
 CREATE TABLE Employees 
 (
 	id int PRIMARY KEY,
-	first varchar(255),
-	last varchar(255),
+	firstName varchar(255),
+	lastName varchar(255),
 	departmentId int,
 	computerId int
 );
