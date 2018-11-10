@@ -25,6 +25,9 @@ namespace BangazonInc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var dbInterface = new DatabaseInterface(Configuration, "BangazonInc");
+            services.AddSingleton<DatabaseInterface>(dbInterface);
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
