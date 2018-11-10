@@ -1,14 +1,12 @@
-DECLARE @counter int = 0
+DECLARE @counter int = 1
 WHILE @counter < 100
 BEGIN
 	INSERT INTO Department
-           (id
-		   ,name
+           (name
            ,budget
            ,supervisorId)
      VALUES
-           (@counter
-		   ,'Dept' + CAST(@counter as varchar) 
+           ('Dept' + CAST(@counter as varchar) 
            ,19.00 + @counter + @counter/2.0
            ,@counter)
 

@@ -10,13 +10,11 @@ BEGIN
 	IF @counter % 5 = 0 SET @type = 'Visa'
 
 	INSERT INTO [dbo].[PaymentType]
-           ([id]
-           ,[customerId]
+           ([customerId]
            ,[accountNum]
            ,[type])
      VALUES
            (@counter
-           ,@counter
            ,@counter + 1000000000000000
            ,@type)
 
