@@ -15,8 +15,8 @@ while @count <= 5000
     SET @deptCount = 0;
   
 
-  INSERT INTO Products (id, Name, description, price, quantity, customerId, productType)
-    Values(@count, 'Product' + LTrim(str(@count)), 'This is a description about product ' + LTrim(str(@count)), 9.99, 1, @customerCount, 'type' + lTrim(str(@deptCount)));
+  INSERT INTO Products (Name, description, price, quantity, customerId, productType)
+    Values('Product' + LTrim(str(@count)), 'This is a description about product ' + LTrim(str(@count)), 9.99, 1, @customerCount, 'type' + lTrim(str(@deptCount)));
 
     SET @count = @count + 1;
 	SET @customerCount = @customerCount + 1;

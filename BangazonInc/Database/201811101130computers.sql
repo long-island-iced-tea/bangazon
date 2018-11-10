@@ -2,13 +2,11 @@ DECLARE @counter int = 1
 WHILE @counter <= 1000
 BEGIN
     INSERT INTO Computers
-           (id
-           ,purchasedAt
+           (purchasedAt
            ,isNew
 		   ,isWorking)
      VALUES
-           (@counter
-           ,'2018-11-10'
+           ('2018-11-10'
            ,1
            ,1)
 

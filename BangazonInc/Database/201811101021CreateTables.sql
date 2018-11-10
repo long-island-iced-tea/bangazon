@@ -1,6 +1,6 @@
 CREATE TABLE Customers 
 (
-	id int PRIMARY KEY,
+	id int IDENTITY(1,1) PRIMARY KEY,
 	firstName varchar(255),
 	lastName varchar(255),
 	createdAt datetime,
@@ -9,7 +9,7 @@ CREATE TABLE Customers
 
 CREATE TABLE Employees 
 (
-	id int PRIMARY KEY,
+	id int IDENTITY(1,1) PRIMARY KEY,
 	firstName varchar(255),
 	lastName varchar(255),
 	departmentId int,
@@ -18,7 +18,7 @@ CREATE TABLE Employees
 
 CREATE TABLE Department 
 (
-	id int PRIMARY KEY,
+	id int IDENTITY(1,1) PRIMARY KEY,
 	name varchar(255),
 	budget decimal,
 	supervisorId int
@@ -26,7 +26,7 @@ CREATE TABLE Department
 
 CREATE TABLE Computers 
 (
-	id int PRIMARY KEY,
+	id int IDENTITY(1,1) PRIMARY KEY,
 	purchasedAt datetime,
 	decommissionedAt datetime,
 	isNew bit,
@@ -35,7 +35,7 @@ CREATE TABLE Computers
 
 CREATE TABLE Products 
 (
-	id int PRIMARY KEY,
+	id int IDENTITY(1,1) PRIMARY KEY,
 	Name varchar(255),
 	description varchar(255),
 	price decimal,
@@ -46,14 +46,14 @@ CREATE TABLE Products
 
 CREATE TABLE ProductOrders 
 (
-	id int PRIMARY KEY,
+	id int IDENTITY(1,1) PRIMARY KEY,
 	ProductId int,
 	OrderId int
 );
 
 CREATE TABLE Orders 
 (
-	id int PRIMARY KEY,
+	id int IDENTITY(1,1) PRIMARY KEY,
 	CustomerId int,
 	paymentType int,
 	completed bit,
@@ -62,7 +62,7 @@ CREATE TABLE Orders
 
 CREATE TABLE TrainingProgram 
 (
-	id int PRIMARY KEY,
+	id int IDENTITY(1,1) PRIMARY KEY,
 	name varchar(255),
 	startDate date,
 	endDate date,
@@ -71,14 +71,14 @@ CREATE TABLE TrainingProgram
 
 CREATE TABLE EmployeeTraining 
 (
-	id int PRIMARY KEY,
+	id int IDENTITY(1,1) PRIMARY KEY,
 	EmployeeId int,
 	ProgramId int
 );
 
 CREATE TABLE PaymentType 
 (
-	id int PRIMARY KEY,
+	id int IDENTITY(1,1) PRIMARY KEY,
 	customerId int,
 	accountNum bigint,
 	type varchar(255)
