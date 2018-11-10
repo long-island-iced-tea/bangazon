@@ -25,10 +25,8 @@ namespace BangazonInc.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            using (var db = _db.GetConnection())
-            {
-                return Ok(db.Database);
-            }
+            var allCustomers = _customers.GetCustomers();
+            return Ok(allCustomers);
         }
     }
 }
