@@ -6,7 +6,7 @@ BEGIN
            ,[ProgramId])
      VALUES
            (@counter
-           ,@counter / 5) -- leaves only 100 training programs, with about 5 employees each
+           ,@counter / 5 + 1) -- leaves only 100 training programs, with about 5 employees each
 	set @counter = @counter + 1
 END
 

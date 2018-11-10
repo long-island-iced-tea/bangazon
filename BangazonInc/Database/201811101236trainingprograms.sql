@@ -1,5 +1,5 @@
 DECLARE @counter int = 1
-WHILE @counter <= 100
+WHILE @counter <= 101
 BEGIN
     INSERT INTO TrainingProgram
            (name
