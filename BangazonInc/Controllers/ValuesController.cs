@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BangazonInc.Controllers
@@ -10,11 +11,33 @@ namespace BangazonInc.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        DatabaseInterface _db;
+        //
+
+        public ValuesController(DatabaseInterface db)
+        {
+            _db = db;
+            // Instantiate new storage class here
+            // _values = new ValuesStorage(db);
+        }
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            using (var connection = _db.GetConnection())
+            {
+                string sql = "SELECT TOP 5 firstName FROM Customers";
+                var firstFive = connection.Query<string>(sql).ToList();
+                if (firstFive.Count == 5)
+                {
+                    return Ok(firstFive);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
         }
 
         // GET api/values/5
