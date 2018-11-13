@@ -26,13 +26,13 @@ namespace BangazonInc.DataAccess
 
         }
 
-        public PaymentType GetPaymentTypeById(int id)
+        public PaymentType GetPaymentTypeById(int paymentTypeId)
         {
             using (var db = _db.GetConnection())
             {
                 var result = db.QueryFirst<PaymentType>(@"select * 
                                                           from PaymentType
-                                                          where Id = @id", new { id = PaymentTypeId });
+                                                          where Id = @id", new { id = paymentTypeId });
                 return result;
             }
 
