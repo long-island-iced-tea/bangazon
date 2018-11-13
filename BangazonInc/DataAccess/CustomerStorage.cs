@@ -27,7 +27,11 @@ namespace BangazonInc.DataAccess
 
         public Customer GetCustomerById(int? id)
         {
-            return GetCustomers().FirstOrDefault(c => c.Id == id);
+            using (var db = _db.GetConnection())
+            {
+                string sql = "SELECT * FROM Customers WHERE Id = @id";
+                return db.QueryFirstOrDefault<Customer>(sql, new { id });
+            }
         }
     }
 }
