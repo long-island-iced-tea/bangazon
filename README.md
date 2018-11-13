@@ -10,8 +10,8 @@ Includes employee and company data.
 #### GET
 - `api/customer`
   - Returns a list of every customer in the database
-- `api/controller`
-  - description and details
+- `api/customers?id=5`
+  - Returns a single customers information by id
 #### POST
 - `api/controller`
   - description and details
