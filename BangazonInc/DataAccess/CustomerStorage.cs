@@ -33,5 +33,25 @@ namespace BangazonInc.DataAccess
                 return db.QueryFirstOrDefault<Customer>(sql, new { id });
             }
         }
+
+        public List<CustomerWithProducts> GetCustomersWithProducts()
+        {
+            using (var db = _db.GetConnection())
+            {
+                string sql = @"
+                            SELECT *
+                            FROM Customers c
+                                JOIN Products p ON p.CustomerId = c.Id";
+
+                var customers = db.Query<Customer, Product, CustomerWithProducts>(sql,
+                    map: (c, p) => {
+                        var custWithProducts = new CustomerWithProducts(c);
+                        custWithProducts.Products.Add(p);
+                        return custWithProducts;
+                    },
+                    splitOn: "isActive,id");
+                return customers.ToList();
+            }
+        }
     }
 }
