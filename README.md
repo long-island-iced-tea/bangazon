@@ -53,11 +53,12 @@ Includes employee and company data.
   - description and details
 
 ### PaymentType
-#### GET
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+#### GET ALL PAYMENT TYPES
+- `api/PaymentType`
+  - Returns all payment types (id, customer id, account number, type)
+#### GET SINGLE PAYMENT TYPES
+- `api/PaymentType/id`
+  - Returns payment type by  the payment type id
 #### POST
 - `api/controller`
   - description and details
@@ -69,10 +70,8 @@ Includes employee and company data.
 - `api/controller`
   - description and details
 #### DELETE
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/PaymentType/id`
+  - Payment Type will delete by payment type ID
 
 ### Order
 #### GET
