@@ -9,7 +9,7 @@ namespace BangazonInc.Models
     {
         public int Id { get; set; }
         public int CustomerId { get; set; }
-        public int AccountNum { get; set; }
+        public Int64 AccountNum { get; set; }
         public string Type { get; set; }
     }
 }
