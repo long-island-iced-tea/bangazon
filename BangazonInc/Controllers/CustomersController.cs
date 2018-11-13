@@ -23,7 +23,7 @@ namespace BangazonInc.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get([FromQuery] int? id, string include)
+        public IActionResult Get([FromQuery] int? id, string include, string q)
         {
             if (id != null)
             {
@@ -41,6 +41,11 @@ namespace BangazonInc.Controllers
                 {
                     return Ok(_customers.GetCustomersWithPayments());
                 }
+            }
+
+            if (q != null)
+            {
+                return Ok(_customers.GetCustomersByTerm(q));
             }
 
             var allCustomers = _customers.GetCustomers();

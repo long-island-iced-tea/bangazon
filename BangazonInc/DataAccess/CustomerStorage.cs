@@ -57,6 +57,19 @@ namespace BangazonInc.DataAccess
                 
             }
         }
+
+        public List<Customer> GetCustomersByTerm(string q)
+        {
+
+            return GetCustomers()
+                .Where(c => 
+                    c.FirstName.ToLower().Contains(q.ToLower()) 
+                    || c.LastName.ToLower().Contains(q.ToLower())
+                    )
+                .ToList();
+
+        }
+
         public List<CustomerWithPayments> GetCustomersWithPayments()
         {
             var customersWithPayments = new List<CustomerWithPayments>();
