@@ -27,5 +27,15 @@ namespace BangazonInc.Controllers
         {
             return Ok(_oa.GetAllOrders());
         }
+
+        // GET /api/orders/5
+        [HttpGet("{id}")]
+        public IActionResult GetSingleOrder(int id)
+        {
+            var requestedOrder = _oa.GetSingleOrder(id);
+            return requestedOrder == null
+                ? BadRequest() as IActionResult
+                : Ok(requestedOrder);
+        }
     }
 }

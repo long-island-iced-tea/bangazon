@@ -24,5 +24,14 @@ namespace BangazonInc.DataAccess
                 return sql.Query<Order>("SELECT * FROM Orders").ToList();
             }
         }
+
+        public Order GetSingleOrder(int id)
+        {
+            using (var sql = _db.GetConnection())
+            {
+                var param = new { orderId = id };
+                return sql.QueryFirstOrDefault<Order>("SELECT * FROM Orders WHERE Id = @orderId", param);
+            }
+        }
     }
 }
