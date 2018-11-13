@@ -24,5 +24,10 @@ namespace BangazonInc.DataAccess
                 return db.Query<Customer>(sql).ToList();
             }
         }
+
+        public Customer GetCustomerById(int? id)
+        {
+            return GetCustomers().FirstOrDefault(c => c.Id == id);
+        }
     }
 }
