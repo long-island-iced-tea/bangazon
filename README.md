@@ -8,8 +8,8 @@ Includes employee and company data.
 
 ### Customer
 #### GET
-- `api/controller`
-  - description and details
+- `api/customer`
+  - Returns a list of every customer in the database
 - `api/customers?id=5`
   - Returns a single customers information by id
 #### POST
@@ -74,10 +74,10 @@ Includes employee and company data.
 
 ### Order
 #### GET
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/orders`
+  - Returns all orders in the database.
+- `api/orders/{id}`
+  - Returns the matching single order, or a `BadRequest` response if not found.
 #### POST
 - `api/controller`
   - description and details
