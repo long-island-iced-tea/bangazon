@@ -36,21 +36,25 @@ namespace BangazonInc.DataAccess
 
         public List<CustomerWithProducts> GetCustomersWithProducts()
         {
+            var customersWithProducts = new List<CustomerWithProducts>();
+
             using (var db = _db.GetConnection())
             {
                 string sql = @"
                             SELECT *
-                            FROM Customers c
-                                JOIN Products p ON p.CustomerId = c.Id";
+                            FROM Products
+                            WHERE CustomerId = @id";
+                var customers = GetCustomers();
+                foreach (var customer in customers)
+                {
+                    var custWithProducts = new CustomerWithProducts(customer);
+                    var products = db.Query<Product>(sql, new { id = customer.Id }).ToList();
+                    custWithProducts.Products = products;
+                    customersWithProducts.Add(custWithProducts);
+                }
 
-                var customers = db.Query<Customer, Product, CustomerWithProducts>(sql,
-                    map: (c, p) => {
-                        var custWithProducts = new CustomerWithProducts(c);
-                        custWithProducts.Products.Add(p);
-                        return custWithProducts;
-                    },
-                    splitOn: "isActive,id");
-                return customers.ToList();
+                return customersWithProducts;
+                
             }
         }
     }
