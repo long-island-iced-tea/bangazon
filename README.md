@@ -74,10 +74,10 @@ Includes employee and company data.
 
 ### Order
 #### GET
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/orders`
+  - Returns all orders in the database.
+- `api/orders/{id}`
+  - Returns the matching single order, or a `BadRequest` response if not found.
 #### POST
 - `api/controller`
   - description and details
