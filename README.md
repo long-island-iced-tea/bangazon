@@ -8,8 +8,8 @@ Includes employee and company data.
 
 ### Customer
 #### GET
-- `api/controller`
-  - description and details
+- `api/customer`
+  - Returns a list of every customer in the database
 - `api/controller`
   - description and details
 #### POST
