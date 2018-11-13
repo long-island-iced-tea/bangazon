@@ -27,5 +27,11 @@ namespace BangazonInc.Controllers
             var allPayType = _paymentType.GetPaymentTypes();
             return Ok(allPayType);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            return Ok(_paymentType.GetPaymentTypeById(id));
+        }
     }
 }

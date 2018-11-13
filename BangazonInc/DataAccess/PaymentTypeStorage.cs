@@ -25,5 +25,19 @@ namespace BangazonInc.DataAccess
             }
 
         }
+
+        public PaymentType GetPaymentTypeById(int id)
+        {
+            using (var db = _db.GetConnection())
+            {
+                var result = db.QueryFirst<PaymentType>(@"select * 
+                                                          from PaymentType
+                                                          where Id = @id", new { id = PaymentTypeId });
+                return result;
+            }
+
+        }
+
+
     }
 }
