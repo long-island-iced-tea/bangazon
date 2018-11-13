@@ -16,7 +16,10 @@ namespace BangazonInc.DataAccess
             _db = db;
         }
 
-        public List<PaymentType> GetPaymentTypes()
+        /******************************
+         Get All Payment Types
+         ******************************/
+        public List<PaymentType> GetAllPaymentTypes()
         {
             using (var db = _db.GetConnection())
             {
@@ -24,6 +27,34 @@ namespace BangazonInc.DataAccess
                 return db.Query<PaymentType>(sql).ToList();
             }
 
+        }
+
+        /******************************
+         Get Single Payment Type by Id
+         ******************************/
+        public PaymentType GetById(int paymentTypeId)
+        {
+            using (var db = _db.GetConnection())
+            {
+                var result = db.QueryFirst<PaymentType>(@"select * 
+                                                          from PaymentType
+                                                          where Id = @id", new { id = paymentTypeId });
+                return result;
+            }
+        }
+
+        /******************************
+         Delete Payment Type by Id
+         ******************************/
+        public bool DeleteById(int paymentTypeId)
+        {
+            using (var db = _db.GetConnection())
+            {
+                var result = db.Execute(@"Delete 
+                                          From PaymentType 
+                                          Where id = @id", new { id = paymentTypeId });
+                return result == 1;
+            }
         }
     }
 }

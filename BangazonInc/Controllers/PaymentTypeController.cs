@@ -22,10 +22,33 @@ namespace BangazonInc.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult GetAll()
         {
-            var allPayType = _paymentType.GetPaymentTypes();
+            var allPayType = _paymentType.GetAllPaymentTypes();
             return Ok(allPayType);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            return Ok(_paymentType.GetById(id));
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeletePaymentType(int id)
+        {
+            var paymentType = _paymentType.GetById(id);
+            if (paymentType == null)
+            {
+                return NotFound();
+            }
+            var success = _paymentType.DeleteById(id);
+            if (success)
+            {
+                return Ok();
+            }
+
+            return BadRequest(new { Message = "Delete was unsuccessful" });
         }
     }
 }
