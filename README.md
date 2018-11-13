@@ -12,6 +12,8 @@ Includes employee and company data.
   - description and details
 - `api/customers?id=5`
   - Returns a single customers information by id
+- `api/customers?include=products
+  - Returns all customers with their products
 #### POST
 - `api/controller`
   - description and details
