@@ -12,10 +12,12 @@ Includes employee and company data.
   - Returns a list of every customer in the database
 - `api/customers?id=5`
   - Returns a single customers information by id
-- `api/customers?include=products
+- `api/customers?include=products`
   - Returns all customers with their products
-- `api/customer?include=payments
+- `api/customer?include=payments`
   - Returns all customers with their payments
+- `api/customers?q=search`
+  - Returns customers whose name properties matches the search term
 #### POST
 - `api/controller`
   - description and details
