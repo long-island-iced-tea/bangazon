@@ -37,9 +37,15 @@ namespace BangazonInc.Controllers
                 {
                     return Ok(_customers.GetCustomersWithProducts());
                 }
+                if (include == "payments")
+                {
+                    return Ok(_customers.GetCustomersWithPayments());
+                }
             }
+
             var allCustomers = _customers.GetCustomers();
             return Ok(allCustomers);
+
         }
     }
 }

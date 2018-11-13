@@ -57,5 +57,28 @@ namespace BangazonInc.DataAccess
                 
             }
         }
+        public List<CustomerWithPayments> GetCustomersWithPayments()
+        {
+            var customersWithPayments = new List<CustomerWithPayments>();
+
+            using (var db = _db.GetConnection())
+            {
+                string sql = @"
+                            SELECT *
+                            FROM PaymentType
+                            WHERE CustomerId = @id";
+                var customers = GetCustomers();
+                foreach (var customer in customers)
+                {
+                    var custWithPayments = new CustomerWithPayments(customer);
+                    var payments = db.Query<PaymentType>(sql, new { id = customer.Id }).ToList();
+                    custWithPayments.Payments = payments;
+                    customersWithPayments.Add(custWithPayments);
+                }
+
+                return customersWithPayments;
+                
+            }
+        }
     }
 }
