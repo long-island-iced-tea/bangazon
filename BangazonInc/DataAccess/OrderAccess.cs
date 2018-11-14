@@ -33,5 +33,51 @@ namespace BangazonInc.DataAccess
                 return sql.QueryFirstOrDefault<Order>("SELECT * FROM Orders WHERE Id = @orderId", param);
             }
         }
+
+        public Order AddNewOrder(Order newOrder)
+        {
+            using (var sql = _db.GetConnection())
+            {
+                var command = @"
+DECLARE @inserted TABLE (Id int, CustomerId int, paymentType int, completed bit, isActive bit);
+
+INSERT INTO Orders (CustomerId, paymentType, completed, isActive) 
+OUTPUT INSERTED.Id, INSERTED.CustomerId, INSERTED.paymentType, INSERTED.completed, INSERTED.isActive
+INTO @inserted
+
+VALUES (@CustomerId, @PaymentType, @Completed, @IsActive)
+
+SELECT * FROM @inserted";
+
+                return sql.QueryFirstOrDefault<Order>(command, newOrder);
+            }
+        }
+
+        public int DeleteOrder (int orderId)
+        {
+            using (var sql = _db.GetConnection())
+            {
+                var paramObject = new { @IdToDelete = orderId };
+
+                var command = "DELETE FROM Orders WHERE Id = @IdToDelete";
+
+                return sql.Execute(command, paramObject);
+            }
+        }
+
+        public Order ModifyOrder (Order newOrder)
+        {
+            using (var sql = _db.GetConnection())
+            {
+                var command = @"
+UPDATE Orders
+SET CustomerId = @CustomerId, paymentType = @PaymentType, completed = @Completed, isActive = @IsActive
+WHERE Id = @Id
+
+SELECT * FROM Orders WHERE Id = @Id";
+
+                return sql.QueryFirstOrDefault<Order>(command, newOrder);
+            }
+        }
     }
 }
