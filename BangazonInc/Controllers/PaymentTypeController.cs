@@ -52,19 +52,19 @@ namespace BangazonInc.Controllers
             return BadRequest(new { Message = "Delete was unsuccessful" });
         }
 
-        [HttpPut("{id}")]
-        public IActionResult UpdatePaymentType(int id, PaymentType paymentType)
+        [HttpPut]
+        public IActionResult UpdatePaymentType(PaymentType paymentType)
         {
-            var payType = _paymentType.GetById(id);
-            if (payType == null)
-            {
-                return NotFound();
-            }
-            var success = payType.Put(id, paymentType);
+            var success = _paymentType.Put(paymentType);
             if (success)
             {
                 return Ok();
             }
+            else
+            {
+                return BadRequest();
+            }
+            
             
         }
     }
