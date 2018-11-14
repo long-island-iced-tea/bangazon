@@ -13,18 +13,19 @@ namespace BangazonInc.Controllers
     public class EmployeeController : ControllerBase
     {
         DatabaseInterface _db;
-        EmployeeStorage _Employees;
+
+        EmployeeStorage _Employee;
 
         public EmployeeController(DatabaseInterface db)
         {
             _db = db;
-            _Employees = new EmployeeStorage(db);
+            _Employee = new EmployeeStorage(db);
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            var allPayType = _Employees.GetAllEmployees();
+            var allPayType = _Employee.GetAllEmployees();
             return Ok(allPayType);
         }
     }
