@@ -45,5 +45,16 @@ namespace BangazonInc.Controllers
         {
             return Ok(_oa.AddNewOrder(newOrder));
         }
+
+        // DELETE /api/orders/5
+        [HttpDelete("{id}")]
+        public IActionResult DeleteOrder(int id)
+        {
+            var rowsDeleted = _oa.DeleteOrder(id);
+
+            return rowsDeleted >= 1
+                ? Ok(new { RowsDeleted = rowsDeleted })
+                : BadRequest(new { RowsDeleted = rowsDeleted }) as IActionResult;
+        }
     }
 }

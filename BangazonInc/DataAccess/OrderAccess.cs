@@ -60,5 +60,17 @@ SELECT * FROM @inserted";
                 return sql.QueryFirstOrDefault<Order>(command, paramObject);
             }
         }
+
+        public int DeleteOrder (int orderId)
+        {
+            using (var sql = _db.GetConnection())
+            {
+                var paramObject = new { @IdToDelete = orderId };
+
+                var command = "DELETE FROM Orders WHERE Id = @IdToDelete";
+
+                return sql.Execute(command, paramObject);
+            }
+        }
     }
 }
