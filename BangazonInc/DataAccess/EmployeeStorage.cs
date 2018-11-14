@@ -19,12 +19,12 @@ namespace BangazonInc.DataAccess
         /******************************
          Get All Employees
          ******************************/
-        public List<Employees> GetAllEmployees()
+        public List<Employee> GetAllEmployees()
         {
             using (var db = _db.GetConnection())
             {
                 string sql = "SELECT * FROM Employees";
-                return db.Query<Employees>(sql).ToList();
+                return db.Query<Employee>(sql).ToList();
             }
 
         }
