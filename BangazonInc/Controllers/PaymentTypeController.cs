@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BangazonInc.DataAccess;
+using BangazonInc.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -52,8 +53,18 @@ namespace BangazonInc.Controllers
         }
 
         [HttpPut("{id}")]
-        public void UpdatePaymentType(int id, [FromBody] string value)
+        public IActionResult UpdatePaymentType(int id, PaymentType paymentType)
         {
+            var payType = _paymentType.GetById(id);
+            if (payType == null)
+            {
+                return NotFound();
+            }
+            var success = payType.Put(id, paymentType);
+            if (success)
+            {
+                return Ok();
+            }
             
         }
     }
