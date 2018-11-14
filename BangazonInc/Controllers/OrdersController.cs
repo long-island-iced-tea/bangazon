@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using BangazonInc.DataAccess;
+using BangazonInc.Models;
 
 namespace BangazonInc.Controllers
 {
@@ -36,6 +37,13 @@ namespace BangazonInc.Controllers
             return requestedOrder == null
                 ? BadRequest() as IActionResult
                 : Ok(requestedOrder);
+        }
+
+        // POST /api/orders
+        [HttpPost]
+        public IActionResult AddNewOrder(Order newOrder)
+        {
+            return Ok(_oa.AddNewOrder(newOrder));
         }
     }
 }
