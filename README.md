@@ -30,15 +30,18 @@ Includes employee and company data.
   }
   ```
 #### PUT
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
-#### DELETE
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/customers`
+  - Updates the user provided in the body
+  - Returns 200 if successful
+  - Takes a body of
+  ```json
+  {
+    "id": 1,
+    "firstName": "Jim",
+    "lastName": "James",
+    "isActive": true
+  }
+  ```
 
 ### Product
 #### GET
