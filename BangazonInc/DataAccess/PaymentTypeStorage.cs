@@ -72,5 +72,19 @@ namespace BangazonInc.DataAccess
                 return result == 1;
             }
         }
+
+        /******************************
+          Add Payment Type to Table
+        ******************************/
+        public bool Add(PaymentType paymentType)
+        {
+            using (var db = _db.GetConnection())
+            {
+                var result = db.Execute(@"INSERT INTO [dbo].[PaymentType]([customerId],[accountNum],[type])
+                                          Values (@customerId, @accountNum, @type)", paymentType);
+
+                return result == 1;
+            }
+        }
     }
 }

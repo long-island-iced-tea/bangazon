@@ -64,8 +64,12 @@ namespace BangazonInc.Controllers
             {
                 return BadRequest();
             }
-            
-            
+        } 
+
+        [HttpPost]
+        public void AddAPaymentType(PaymentType paymentType)
+        {
+            _paymentType.Add(paymentType);
         }
     }
 }
