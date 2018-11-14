@@ -55,10 +55,8 @@ Includes employee and company data.
 - `api/controller`
   - description and details
 #### PUT
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/product/product`
+  - Updates product 
 #### DELETE
 - `api/product/{id}`
   - Deletes Product By Id
