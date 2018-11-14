@@ -27,5 +27,12 @@ namespace BangazonInc.Controllers
             var allProducts = _product.GetProduct();
             return Ok(allProducts);
         }
+
+        //[HttpGet("{id}")]
+        //public IActionResult GetProductById(int id)
+        //{
+        //    var singleProduct = _product.GetProductById(id);
+        //    return Ok(singleProduct);
+        //}
     }
 }

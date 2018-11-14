@@ -34,8 +34,8 @@ Includes employee and company data.
 #### GET
 - `api/product`
   - Reads all products from database
-- `api/controller`
-  - description and details
+- `api/product/{id}`
+  - Reads single product by id
 #### POST
 - `api/controller`
   - description and details
