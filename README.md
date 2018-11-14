@@ -71,15 +71,11 @@ Includes employee and company data.
 - `api/PaymentType/id`
   - Returns payment type by  the payment type id
 #### POST
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/PaymentType`
+  - Able to add another payment type to the database
 #### PUT
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/PaymentType`
+  - Update an existing payment type by id
 #### DELETE
 - `api/PaymentType/id`
   - Payment Type will delete by payment type ID
