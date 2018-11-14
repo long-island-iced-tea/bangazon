@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BangazonInc.DataAccess;
+using BangazonInc.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -51,6 +52,21 @@ namespace BangazonInc.Controllers
             var allCustomers = _customers.GetCustomers();
             return Ok(allCustomers);
 
+        }
+
+        [HttpPost]
+        public IActionResult AddCustomer(Customer newCustomer)
+        {
+            var success = _customers.AddNew(newCustomer);
+            
+            if (success)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }
