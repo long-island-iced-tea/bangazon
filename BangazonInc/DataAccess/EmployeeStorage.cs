@@ -26,7 +26,6 @@ namespace BangazonInc.DataAccess
                 string sql = "SELECT * FROM Employees";
                 return db.Query<Employee>(sql).ToList();
             }
-
         }
     }
 }
