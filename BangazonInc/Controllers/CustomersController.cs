@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BangazonInc.DataAccess;
+using BangazonInc.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +24,7 @@ namespace BangazonInc.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get([FromQuery] int? id, string include)
+        public IActionResult Get([FromQuery] int? id, string include, string q)
         {
             if (id != null)
             {
@@ -43,9 +44,29 @@ namespace BangazonInc.Controllers
                 }
             }
 
+            if (q != null)
+            {
+                return Ok(_customers.GetCustomersByTerm(q));
+            }
+
             var allCustomers = _customers.GetCustomers();
             return Ok(allCustomers);
 
+        }
+
+        [HttpPost]
+        public IActionResult AddCustomer(Customer newCustomer)
+        {
+            var success = _customers.AddNew(newCustomer);
+            
+            if (success)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }

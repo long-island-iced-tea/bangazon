@@ -8,19 +8,27 @@ Includes employee and company data.
 
 ### Customer
 #### GET
-- `api/customer`
+- `api/customers`
   - Returns a list of every customer in the database
 - `api/customers?id=5`
   - Returns a single customers information by id
-- `api/customers?include=products
+- `api/customers?include=products`
   - Returns all customers with their products
-- `api/customer?include=payments
+- `api/customers?include=payments`
   - Returns all customers with their payments
+- `api/customers?q=search`
+  - Returns customers whose name properties matches the search term
 #### POST
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/customers`
+  - Adds a new customer to the database
+  - Returns 200 if successful
+  - Takes a body of
+  ```json
+  {
+    "firstName": "string",
+    "lastName": "name"
+  }
+  ```
 #### PUT
 - `api/controller`
   - description and details

@@ -57,6 +57,34 @@ namespace BangazonInc.DataAccess
                 
             }
         }
+
+        public bool AddNew(Customer newCustomer)
+        {
+            using (var db = _db.GetConnection())
+            {
+                string sql = @"
+                            INSERT INTO Customers
+                            VALUES (@firstName,
+                                    @lastName,
+                                    GETDATE(),
+                                    1)";
+                var result = db.Execute(sql, newCustomer);
+                return result == 1;
+            }
+        }
+
+        public List<Customer> GetCustomersByTerm(string q)
+        {
+
+            return GetCustomers()
+                .Where(c => 
+                    c.FirstName.ToLower().Contains(q.ToLower()) 
+                    || c.LastName.ToLower().Contains(q.ToLower())
+                    )
+                .ToList();
+
+        }
+
         public List<CustomerWithPayments> GetCustomersWithPayments()
         {
             var customersWithPayments = new List<CustomerWithPayments>();
