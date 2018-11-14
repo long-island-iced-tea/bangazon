@@ -119,24 +119,18 @@ Includes employee and company data.
 
 ### Employee
 #### GET
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/Employee`
+  - All Employees returned
+- `api/Employee/id`
+  - Single Employee is returned
 #### POST
-- `api/controller`
-  - description and details
-- `api/controller`
+- `api/Employee`
   - description and details
 #### PUT
-- `api/controller`
-  - description and details
-- `api/controller`
+- `api/Employee`
   - description and details
 #### DELETE
-- `api/controller`
-  - description and details
-- `api/controller`
+- `api/Employee/id`
   - description and details
 
 ### Department
