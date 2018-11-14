@@ -73,6 +73,21 @@ namespace BangazonInc.DataAccess
             }
         }
 
+        public bool UpdateCustomer(Customer newCustomer)
+        {
+            using (var db = _db.GetConnection())
+            {
+                string sql = @"
+                            UPDATE Customers
+                                SET firstName = @firstName,
+                                lastName = @lastName,
+                                isActive = @isActive
+                            WHERE Id = @id";
+                var result = db.Execute(sql, newCustomer);
+                return result == 1;
+            }
+        }
+
         public List<Customer> GetCustomersByTerm(string q)
         {
 
