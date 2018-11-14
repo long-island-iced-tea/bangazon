@@ -68,5 +68,19 @@ namespace BangazonInc.Controllers
                 return BadRequest();
             }
         }
+        [HttpPut]
+        public IActionResult UpdateCustomer(Customer newCustomer)
+        {
+            var success = _customers.UpdateCustomer(newCustomer);
+            
+            if (success)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
     }
 }
