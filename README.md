@@ -47,8 +47,8 @@ Includes employee and company data.
 #### GET
 - `api/product`
   - Reads all products from database
-- `api/controller`
-  - description and details
+- `api/product/{id}`
+  - Reads single product by id
 #### POST
 - `api/controller`
   - description and details
@@ -60,10 +60,8 @@ Includes employee and company data.
 - `api/controller`
   - description and details
 #### DELETE
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/product/{id}`
+  - Deletes Product By Id
 
 ### PaymentType
 #### GET ALL PAYMENT TYPES
