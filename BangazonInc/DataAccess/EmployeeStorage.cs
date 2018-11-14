@@ -27,5 +27,19 @@ namespace BangazonInc.DataAccess
                 return db.Query<Employee>(sql).ToList();
             }
         }
+
+        /******************************
+           Get Single Employee
+         ******************************/
+        public Employee GetById(int employeeId)
+        {
+            using (var db = _db.GetConnection())
+            {
+                var result = db.QueryFirst<Employee>(@"select * 
+                                                          from Employees
+                                                          where Id = @id", new { id = employeeId });
+                return result;
+            }
+        }
     }
 }
