@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BangazonInc.Models
 {
-    public class Employees
+    public class Employee
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
