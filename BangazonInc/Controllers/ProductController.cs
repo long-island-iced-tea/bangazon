@@ -28,11 +28,30 @@ namespace BangazonInc.Controllers
             return Ok(allProducts);
         }
 
-        //[HttpGet("{id}")]
-        //public IActionResult GetProductById(int id)
-        //{
-        //    var singleProduct = _product.GetProductById(id);
-        //    return Ok(singleProduct);
-        //}
+        [HttpGet("{id}")]
+        public IActionResult GetProductById(int id)
+        {
+            var singleProduct = _product.GetProductById(id);
+            return Ok(singleProduct);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteById(int id)
+        {
+            var product = _product.GetProductById(id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            var success = _product.DeleteById(id);
+
+            if (success)
+            {
+                return Ok();
+            }
+            return BadRequest(new { Message = "Delete was unsuccessful" });
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace BangazonInc.DataAccess
         {
             _db = db;
         }
-
+        // Get ALL PRODUCTS
         public List<Product> GetProduct()
         {
             using(var db= _db.GetConnection())
@@ -25,13 +25,26 @@ namespace BangazonInc.DataAccess
             }
         }
 
-        //public Product GetProductById(int id)
-        //{
-        //    using(var db= _db.GetConnection())
-        //    {
-        //        var sql = db.QueryFirst<Product>(@"SELECT * FROM PRODUCT WHERE Id = {id}");
-        //        return sql;
-        //    }
-        //}
+        // GET SINGLE PRODUCT
+        public Product GetProductById(int ProductId)
+        {
+            using (var db = _db.GetConnection())
+            {
+                var sql = db.QueryFirstOrDefault<Product>(@"SELECT * 
+                                                FROM PRODUCTS WHERE Id = @id", new { id = ProductId});
+                return sql;
+            }
+        }
+
+        // DELETE SINGLE PRODUCT
+
+        public bool DeleteById(int ProductId)
+        {
+            using (var db = _db.GetConnection())
+            {
+                var sql = db.Execute("DELETE FROM PRODUCTS WHERE Id = @id", new { id = ProductId });
+                return sql == 1;
+            }
+        }
     }
 }
