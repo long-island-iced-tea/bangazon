@@ -80,20 +80,14 @@ Includes employee and company data.
 - `api/orders/{id}`
   - Returns the matching single order, or a `BadRequest` response if not found.
 #### POST
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/orders`
+  - Accepts an Order object and inserts it into the database, and returns the object including its assigned id.
 #### PUT
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/orders/{id}`
+  - Accepts an Order object (ignoring the `id` attribute on the object, if present) and updates the URL-indicated order with the properties in it, then returns the modified order.
 #### DELETE
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/orders/{id}`
+  - Attempts to delete the indicated order in the DB, then returns `Ok` or `BadRequest` along with an object with a `rowsDeleted` attribute indicating the number of rows affected.
 
 ### ProductType
 #### GET
