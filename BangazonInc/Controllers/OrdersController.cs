@@ -53,8 +53,20 @@ namespace BangazonInc.Controllers
             var rowsDeleted = _oa.DeleteOrder(id);
 
             return rowsDeleted >= 1
-                ? Ok(new { RowsDeleted = rowsDeleted })
-                : BadRequest(new { RowsDeleted = rowsDeleted }) as IActionResult;
+                ? Ok(new { rowsDeleted })
+                : BadRequest(new { rowsDeleted }) as IActionResult;
+        }
+
+        // PUT /api/orders/5
+        [HttpPut("{id}")]
+        public IActionResult ModifyOrder (int id, Order newOrder)
+        {
+            newOrder.Id = id;
+            var rowsChanged = _oa.ModifyOrder(newOrder);
+
+            return rowsChanged == null
+                ? BadRequest() as IActionResult
+                : Ok(rowsChanged);
         }
     }
 }
