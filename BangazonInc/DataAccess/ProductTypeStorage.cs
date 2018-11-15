@@ -50,6 +50,25 @@ namespace BangazonInc.DataAccess
             }
         }
 
+        public bool Delete(int id)
+        {
+            using (var db = _db.GetConnection())
+            {
+                string sql = "DELETE FROM ProductTypes WHERE Id = @id";
+                var result = db.Execute(sql, new { id });
+                if (result == 1)
+                {
+                    var typeToRemove = _productTypes.First(pt => pt.Id == id);
+                    _productTypes.Remove(typeToRemove);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         public ProductType Edit(ProductType ptype)
         {
             using (var db = _db.GetConnection())

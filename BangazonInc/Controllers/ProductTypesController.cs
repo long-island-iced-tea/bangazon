@@ -44,5 +44,22 @@ namespace BangazonInc.Controllers
         {
             return Ok(_ptypes.Edit(ptype));
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var success = _ptypes.Delete(id);
+
+            if (success)
+            {
+                return Ok();
+
+            }
+            else
+            {
+                return NotFound();
+            }
+
+        }
     }
 }
