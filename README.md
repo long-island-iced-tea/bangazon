@@ -110,10 +110,10 @@ Includes employee and company data.
 
 ### ProductType
 #### GET
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/producttypes`
+  - Returns all product types.
+- `api/producttypes/{id}`
+  - Returns the product type with the matching id.
 #### POST
 - `api/controller`
   - description and details
