@@ -38,5 +38,11 @@ namespace BangazonInc.Controllers
         {
             return Ok(_ptypes.AddNew(ptype));
         }
+
+        [HttpPut]
+        public IActionResult UpdateProductType(ProductType ptype)
+        {
+            return Ok(_ptypes.Edit(ptype));
+        }
     }
 }

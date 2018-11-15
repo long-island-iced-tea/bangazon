@@ -49,5 +49,17 @@ namespace BangazonInc.DataAccess
                 return ptype;
             }
         }
+
+        public ProductType Edit(ProductType ptype)
+        {
+            using (var db = _db.GetConnection())
+            {
+                string sql = "UPDATE ProductTypes SET Name = @Name WHERE Id = @Id";
+                db.Execute(sql, ptype);
+                var editedType = _productTypes.FirstOrDefault(pt => pt.Id == ptype.Id);
+                editedType.Name = ptype.Name;
+                return ptype;
+            }
+        }
     }
 }
