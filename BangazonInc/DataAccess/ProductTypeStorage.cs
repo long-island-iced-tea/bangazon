@@ -36,5 +36,18 @@ namespace BangazonInc.DataAccess
         {
             return _productTypes.FirstOrDefault(pt => pt.Id == id);
         }
+
+        public ProductType AddNew(ProductType ptype)
+        {
+            using (var db = _db.GetConnection())
+            {
+                
+                string sql = "INSERT INTO ProductTypes VALUES (@name)";
+                var result = db.Execute(sql, ptype);
+                ptype.Id = _productTypes.Max(c => c.Id) + 1;
+                _productTypes.Add(ptype);
+                return ptype;
+            }
+        }
     }
 }
