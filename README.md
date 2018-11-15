@@ -65,15 +65,27 @@ Includes employee and company data.
 #### GET ALL PAYMENT TYPES
 - `api/PaymentType`
   - Returns all payment types (id, customer id, account number, type)
+
 #### GET SINGLE PAYMENT TYPES
 - `api/PaymentType/id`
   - Returns payment type by  the payment type id
+
 #### POST
+<<<<<<< HEAD
+- `api/controller`
+  - description and details
+
+#### PUT
+- `api/controller`
+  - description and details
+
+=======
 - `api/PaymentType`
   - Able to add another payment type to the database
 #### PUT
 - `api/PaymentType`
   - Update an existing payment type by id
+>>>>>>> master
 #### DELETE
 - `api/PaymentType/id`
   - Payment Type will delete by payment type ID

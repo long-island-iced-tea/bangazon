@@ -17,7 +17,7 @@ namespace BangazonInc.DataAccess
         }
 
         /******************************
-         Get All Payment Types
+          Get All Payment Types
          ******************************/
         public List<PaymentType> GetAllPaymentTypes()
         {
@@ -30,7 +30,7 @@ namespace BangazonInc.DataAccess
         }
 
         /******************************
-         Get Single Payment Type by Id
+           Get Single Payment Type by Id
          ******************************/
         public PaymentType GetById(int paymentTypeId)
         {
@@ -44,7 +44,7 @@ namespace BangazonInc.DataAccess
         }
 
         /******************************
-         Delete Payment Type by Id
+           Delete Payment Type by Id
          ******************************/
         public bool DeleteById(int paymentTypeId)
         {
@@ -58,14 +58,31 @@ namespace BangazonInc.DataAccess
         }
 
         /******************************
-         Add Payment Type to Table
+           Update Payment Type
          ******************************/
+        public bool Put(PaymentType paymentType)
+        {
+            using (var db = _db.GetConnection())
+            {
+                var result = db.Execute(@"Update PaymentType
+                                          Set customerId = @customerId,
+                                              accountNum = @accountNum,
+                                              type = @type
+                                          Where id = @id", paymentType);
+                return result == 1;
+            }
+        }
+
+        /******************************
+          Add Payment Type to Table
+        ******************************/
         public bool Add(PaymentType paymentType)
         {
             using (var db = _db.GetConnection())
             {
                 var result = db.Execute(@"INSERT INTO [dbo].[PaymentType]([customerId],[accountNum],[type])
                                           Values (@customerId, @accountNum, @type)", paymentType);
+
                 return result == 1;
             }
         }
