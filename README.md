@@ -115,10 +115,14 @@ Includes employee and company data.
 - `api/producttypes/{id}`
   - Returns the product type with the matching id.
 #### POST
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/producttypes`
+  - Returns the product type just inserted
+  - Takes a body of
+  ```json
+  {
+    "name": "Product Type"
+  }
+  ```
 #### PUT
 - `api/controller`
   - description and details
