@@ -134,10 +134,9 @@ Includes employee and company data.
   }
   ```
 #### DELETE
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/producttypes/{id}`
+  - Deletes the product type by id
+  - Returns 200 if successful
 
 ### Employee
 #### GET
