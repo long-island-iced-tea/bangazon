@@ -124,10 +124,15 @@ Includes employee and company data.
   }
   ```
 #### PUT
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/producttypes`
+  - Updates the product type name and returns the updated type
+  - Takes a body of
+  ```json
+  {
+    "id": 1,
+    "name": "Edited name"
+  }
+  ```
 #### DELETE
 - `api/controller`
   - description and details
