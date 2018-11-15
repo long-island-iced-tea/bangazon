@@ -13,6 +13,6 @@ namespace BangazonInc.Models
         public decimal Price { get; set; }
         public int Quantity { get; set; }
         public int CustomerId { get; set; }
-        public string ProductType { get; set; }
+        public int ProductType { get; set; }
     }
 }
