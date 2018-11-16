@@ -43,6 +43,23 @@ namespace BangazonInc.DataAccess
         }
 
         /******************************
+           Update Payment Type
+         ******************************/
+        public bool Put(Employee employee)
+        {
+            using (var db = _db.GetConnection())
+            {
+                var result = db.Execute(@"Update Employees
+                                          Set firstName = @firstName,
+                                              lastName = @lastName,
+                                              departmentId = @departmentId,
+                                              computerId = @computerId
+                                          Where id = @id", employee);
+                return result == 1;
+            }
+        }
+
+        /******************************
           Add an Employee to Table
         ******************************/
         public bool Add(Employee employee)

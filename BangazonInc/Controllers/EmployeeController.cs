@@ -36,6 +36,20 @@ namespace BangazonInc.Controllers
             return Ok(_Employee.GetById(id));
         }
 
+        [HttpPut]
+        public IActionResult UpdatePaymentType(Employee employee)
+        {
+            var success = _Employee.Put(employee);
+            if (success)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpPost]
         public void AddAnEmployee(Employee employee)
         {
