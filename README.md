@@ -96,6 +96,8 @@ Includes employee and company data.
 #### GET
 - `api/orders`
   - Returns all orders in the database.
+  - Parameters:
+    - `?completed=true` or `completed=false`: Filters the returned orders by the Completed attribute.
 - `api/orders/{id}`
   - Returns the matching single order, or a `BadRequest` response if not found.
 #### POST

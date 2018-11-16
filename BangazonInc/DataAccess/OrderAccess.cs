@@ -17,15 +17,26 @@ namespace BangazonInc.DataAccess
             _db = db;
         }
 
-        public List<Order> GetAllOrders()
+        public List<Order> GetAllOrders(bool? completed)
         {
             using (var sql = _db.GetConnection())
             {
-                return sql.Query<Order>("SELECT * FROM Orders").ToList();
+                var command = "SELECT * FROM Orders";
+
+                switch (completed)
+                {
+                    case true:
+                        command += " WHERE completed = 1";
+                        break;
+                    case false:
+                        command += " WHERE completed = 0";
+                        break;
+                }
+                return sql.Query<Order>(command).ToList();
             }
         }
 
-        public Order GetSingleOrder(int id)
+        public Order GetSingleOrder(int id, string _include)
         {
             using (var sql = _db.GetConnection())
             {
