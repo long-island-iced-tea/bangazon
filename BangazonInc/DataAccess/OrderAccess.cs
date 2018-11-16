@@ -52,7 +52,15 @@ namespace BangazonInc.DataAccess
             using (var sql = _db.GetConnection())
             {
                 var param = new { orderId = id };
-                return sql.QueryFirstOrDefault<Order>("SELECT * FROM Orders WHERE Id = @orderId", param);
+                var requestedOrder = sql.QueryFirstOrDefault<Order>("SELECT * FROM Orders WHERE Id = @orderId", param);
+
+                if (_include == "customers")
+                {
+                    var cust = sql.QueryFirstOrDefault<Customer>("SELECT * FROM Customers WHERE Id = @Id", new { Id = requestedOrder.CustomerId });
+                    requestedOrder = new OrderWithCustomer(requestedOrder, cust);
+                }
+
+                return requestedOrder;
             }
         }
 
