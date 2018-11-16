@@ -77,6 +77,10 @@ WHERE po.OrderId = @OrderId";
                     var cust = sql.QueryFirstOrDefault<Customer>("SELECT * FROM Customers WHERE Id = @Id", new { Id = requestedOrder.CustomerId });
                     requestedOrder = new OrderWithCustomer(requestedOrder, cust);
                 }
+                else if (_include == "products")
+                {
+                    requestedOrder = AddProductsToOrder(requestedOrder);
+                }
 
                 return requestedOrder;
             }
