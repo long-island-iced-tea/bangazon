@@ -42,8 +42,26 @@ namespace BangazonInc.DataAccess
                         .Select(currentOrder => new OrderWithCustomer(currentOrder, customers.FirstOrDefault(x => x.Id == currentOrder.CustomerId)) as Order)
                         .ToList();
                 }
+                else if (_include == "products")
+                {
+                    results = results.Select(x => AddProductsToOrder(x) as Order).ToList();
+                }
 
                 return results;
+            }
+        }
+
+        private OrderWithProducts AddProductsToOrder(Order workingOrder)
+        {
+            using (var sql = _db.GetConnection())
+            {
+                var command = @"
+SELECT p.id, p.Name, p.description, p.price, p.quantity, p.customerId, p.productType FROM Products AS p
+JOIN ProductOrders AS po ON po.ProductId = p.id
+WHERE po.OrderId = @OrderId";
+                var orderProducts = sql.Query<Product>(command, new { OrderId = workingOrder.Id });
+
+                return new OrderWithProducts(workingOrder, orderProducts.ToList());
             }
         }
 
