@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BangazonInc.DataAccess;
+using BangazonInc.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,6 +34,12 @@ namespace BangazonInc.Controllers
         public IActionResult GetById(int id)
         {
             return Ok(_Employee.GetById(id));
+        }
+
+        [HttpPost]
+        public void AddAnEmployee(Employee employee)
+        {
+            _Employee.Add(employee);
         }
     }
 }

@@ -41,5 +41,19 @@ namespace BangazonInc.DataAccess
                 return result;
             }
         }
+
+        /******************************
+          Add an Employee to Table
+        ******************************/
+        public bool Add(Employee employee)
+        {
+            using (var db = _db.GetConnection())
+            {
+                var result = db.Execute(@"INSERT INTO [dbo].[Employees]([firstName],[lastName],[departmentId], [computerId])
+                                          Values (@firstName, @lastName, @departmentId, @computerId)", employee);
+
+                return result == 1;
+            }
+        }
     }
 }
