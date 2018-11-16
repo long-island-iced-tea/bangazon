@@ -17,7 +17,7 @@ namespace BangazonInc.DataAccess
             _db = db;
         }
 
-        public List<Order> GetAllOrders(bool? completed)
+        public List<Order> GetAllOrders(bool? completed, string _include)
         {
             using (var sql = _db.GetConnection())
             {
@@ -32,7 +32,18 @@ namespace BangazonInc.DataAccess
                         command += " WHERE completed = 0";
                         break;
                 }
-                return sql.Query<Order>(command).ToList();
+
+                var results = sql.Query<Order>(command).ToList();
+
+                if (_include == "customers")
+                {
+                    var customers = sql.Query<Customer>("SELECT * FROM Customers");
+                    results = results
+                        .Select(currentOrder => new OrderWithCustomer(currentOrder, customers.FirstOrDefault(x => x.Id == currentOrder.CustomerId)) as Order)
+                        .ToList();
+                }
+
+                return results;
             }
         }
 

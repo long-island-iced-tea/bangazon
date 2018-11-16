@@ -13,20 +13,18 @@ namespace BangazonInc.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        DatabaseInterface _db;
         OrderAccess _oa;
 
         public OrdersController(DatabaseInterface db)
         {
-            _db = db;
             _oa = new OrderAccess(db);
         }
 
         // GET /api/orders
         [HttpGet]
-        public IActionResult GetOrders([FromQuery] bool? completed)
+        public IActionResult GetOrders([FromQuery] bool? completed, [FromQuery] string _include)
         {
-            return Ok(_oa.GetAllOrders(completed));
+            return Ok(_oa.GetAllOrders(completed, _include));
         }
 
         // GET /api/orders/5
