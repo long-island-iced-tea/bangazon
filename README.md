@@ -55,7 +55,7 @@ Includes employee and company data.
 
 #### PUT
 - `api/product/product`
-  - Updates product 
+  - Updates product
 #### DELETE
 - `api/product/{id}`
   - Deletes Product By Id
@@ -156,16 +156,27 @@ Includes employee and company data.
   - Gets single department by id
 #### POST
 - `api/department`
-  - Posts new department
+  - Adds new department to database, return 200 if successful
+  - Takes a body of
+  ```json
+  {
+    "name": "New Department",
+    "budget": 800.43,
+    "supervisorId": 4
+  }
+  ```
 #### PUT
-- `api/controller`
-  - description and details
-#### DELETE
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
-
+- `api/department`
+  - Updates the department with the given id
+  - Takes a body of
+  ```json
+  {
+    "id": 3,
+    "name": "Updated Department",
+    "budget": 99.99,
+    "supervisorId": 2
+  }
+  ```
 ### Computer
 #### GET
 - `api/computer`
