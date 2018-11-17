@@ -135,18 +135,18 @@ Includes employee and company data.
 ### Employee
 #### GET
 - `api/Employee`
-  - All Employees returned
+  - All Employees returned with department name and computer object
 - `api/Employee/id`
-  - Single Employee is returned
+  - Single Employee is returned with department name and computer object
 #### POST
 - `api/Employee`
-  - description and details
+  - Able to add an employee
 #### PUT
 - `api/Employee`
-  - description and details
+  - able to update an employees information
 #### DELETE
 - `api/Employee/id`
-  - description and details
+  - able to delete an employee by employee id.
 
 ### Department
 #### GET
