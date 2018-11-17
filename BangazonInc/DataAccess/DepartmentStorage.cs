@@ -26,5 +26,16 @@ namespace BangazonInc.DataAccess
                 return db.Query<Department>(sql).ToList();
             }
         }
+
+        // Get Single Department
+
+        public Department GetDeptById(int DeptId)
+        {
+            using(var db = _db.GetConnection())
+            {
+                var sql = db.QueryFirstOrDefault<Department>(@"Select * from Department Where Id =@id", new { id = DeptId });
+                return sql;
+            }
+        }
     }
 }

@@ -28,6 +28,13 @@ namespace BangazonInc.Controllers
             return Ok(allDepts);
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            var singleDept = _department.GetDeptById(id);
+            return Ok(singleDept);
+        }
+
          
     }
 }
