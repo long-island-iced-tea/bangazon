@@ -26,5 +26,15 @@ namespace BangazonInc.Controllers
         {
             return Ok(_tpa.GetAllPrograms(completed));
         }
+
+        // GET /api/trainingprogram/5
+        [HttpGet("{id}")]
+        public IActionResult GetSingleTrainingProgram(int id)
+        {
+            var requestedTrainingProgram = _tpa.GetSingleProgramById(id);
+            return requestedTrainingProgram == null
+                ? BadRequest() as IActionResult
+                : Ok(requestedTrainingProgram);
+        }
     }
 }

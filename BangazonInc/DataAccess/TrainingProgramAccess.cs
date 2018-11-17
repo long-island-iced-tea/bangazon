@@ -35,5 +35,13 @@ namespace BangazonInc.DataAccess
                 return sql.Query<TrainingProgram>(command, new { now = DateTime.Now }).ToList();
             }
         }
+
+        public TrainingProgram GetSingleProgramById (int id)
+        {
+            using (var sql = _db.GetConnection())
+            {
+                return sql.QueryFirstOrDefault<TrainingProgram>("SELECT * FROM TrainingProgram WHERE Id = @id", new { id });
+            }
+        }
     }
 }
