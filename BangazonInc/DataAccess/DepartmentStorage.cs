@@ -26,5 +26,15 @@ namespace BangazonInc.DataAccess
                 return db.Query<Department>(sql).ToList();
             }
         }
+
+        public bool AddNew(Department department)
+        {
+            using (var db = _db.GetConnection())
+            {
+                string sql = "INSERT INTO Department VALUES (@Name, @Budget, @SupervisorId)";
+                var result = db.Execute(sql, department);
+                return result == 1;
+            }
+        }
     }
 }
