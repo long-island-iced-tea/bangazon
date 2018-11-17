@@ -23,8 +23,18 @@ namespace BangazonInc.Controllers
         }
         
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll([FromQuery] string include)
         {
+            if (include != null)
+            {
+                if (include == "employees")
+                {
+                    var deptWithEmployees = _department.GetWithEmployees();
+                    return Ok(deptWithEmployees);
+
+                }
+            }
+
             var allDepts = _department.GetDept();
             return Ok(allDepts);
         }

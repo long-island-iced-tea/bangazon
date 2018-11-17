@@ -39,6 +39,29 @@ namespace BangazonInc.DataAccess
             }
 
         }
+
+        public List<DepartmentWithEmployees> GetWithEmployees()
+        {
+            var depts = GetDept();
+            var deptResponse = new List<DepartmentWithEmployees>();
+
+            using (var db = _db.GetConnection())
+            {
+                string sql = "SELECT * FROM Employees";
+                var employees = db.Query<Employee>(sql);
+
+                foreach(var dept in depts)
+                {
+                    var deptWithEmployees = new DepartmentWithEmployees(dept);
+                    var employeesInDept = employees.Where(e => e.DepartmentId == dept.Id).ToList();
+                    deptWithEmployees.Employees = employeesInDept;
+                    deptResponse.Add(deptWithEmployees);
+                }
+
+                return deptResponse;
+            }
+        }
+
         // Posting Department
 
         public bool AddNew(Department department)
