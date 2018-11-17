@@ -16,12 +16,13 @@ namespace BangazonInc.Controllers
         DatabaseInterface _db;
         DepartmentStorage _department;
 
-        public DepartmentController (DatabaseInterface db)
+        public DepartmentController(DatabaseInterface db)
         {
             _db = db;
             _department = new DepartmentStorage(db);
         }
-        
+
+
         [HttpGet]
         public IActionResult GetAll()
         {
