@@ -23,12 +23,21 @@ namespace BangazonInc.DataAccess
         {
             using (var db = _db.GetConnection())
             {
-                string sql = @"select e.*, c.*, d.name as DepartmentName
-                               From Employees e
-                               Join Department d
-                               ON e.departmentId = d.id
+                string sql = @"SELECT 
+                                 e.id,
+                                 e.firstName,
+                                 e.lastName,
+                                 d.name as DepartmentName,
+                                 c.id as ComputerId,
+                                 c.purchasedAt as ComputerPurchased, 
+                                 c.decommissionedAt as ComputerDecommissioned,
+                                 c.isNew as ComputerIsNew,
+                                 c.isWorking as ComputerIsWorking
+                               FROM Employees e
+                               JOIN Department d
+                                 ON e.departmentId = d.id
                                JOIN Computers c
-                               ON e.computerId = c.id";
+                                 ON e.computerId = c.id";
                 return db.Query<Employee>(sql).ToList();
             }
         }
@@ -40,13 +49,23 @@ namespace BangazonInc.DataAccess
         {
             using (var db = _db.GetConnection())
             {
-                var result = db.QueryFirst<Employee>(@"select e.*, c.*, d.name as DepartmentName
-                                                       from Employees e
-                                                       Join Department d
-                                                       ON e.departmentId = d.id
-                                                       JOIN computers c
-                                                       ON e.computerId = c.id
-                                                       where e.Id = @id", new { id = employeeId });
+                var result = db.QueryFirst<Employee>(@"
+                               SELECT 
+                                 e.id,
+                                 e.firstName,
+                                 e.lastName,
+                                 d.name AS DepartmentName,
+                                 c.id AS ComputerId,
+                                 c.purchasedAt AS ComputerPurchased, 
+                                 c.decommissionedAt AS ComputerDecommissioned,
+                                 c.isNew AS ComputerIsNew,
+                                 c.isWorking AS ComputerIsWorking
+                               FROM Employees e
+                               JOIN Department d
+                                 ON e.departmentId = d.id
+                               JOIN computers c
+                                 ON e.computerId = c.id
+                               WHERE e.Id = @id", new { id = employeeId });
                 return result;
             }
         }
