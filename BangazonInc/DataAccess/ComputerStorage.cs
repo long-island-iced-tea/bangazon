@@ -27,5 +27,15 @@ namespace BangazonInc.DataAccess
             }
         }
 
+        // Get Single Computer 
+        public Computer GetComputerById(int ComputerId)
+        {
+            using (var db= _db.GetConnection())
+            {
+                var sql = db.QueryFirstOrDefault<Computer>(@"SELECT * From Computers Where Id = @id", new { id = ComputerId });
+                return sql;
+            }
+        }
+
     }
 }

@@ -169,8 +169,8 @@ Includes employee and company data.
 #### GET
 - `api/computer`
   - Gets all computers
-- `api/controller`
-  - description and details
+- `api/computer/id`
+  - Gets computer by id
 #### POST
 - `api/controller`
   - description and details

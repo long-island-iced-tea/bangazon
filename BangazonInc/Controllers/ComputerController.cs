@@ -27,5 +27,12 @@ namespace BangazonInc.Controllers
             var allComputers = _computer.GetComputer();
             return Ok(allComputers);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetComputerById(int id)
+        {
+            var singleComputer = _computer.GetComputerById(id);
+            return Ok(singleComputer);
+        }
     }
 }
