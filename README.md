@@ -150,18 +150,14 @@ Includes employee and company data.
 
 ### Department
 #### GET
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/department`
+  - Gets all departments
+- `api/department/id`
+  - Gets single department by id
 #### POST
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/department`
+  - Posts new department
 #### PUT
-- `api/controller`
-  - description and details
 - `api/controller`
   - description and details
 #### DELETE
