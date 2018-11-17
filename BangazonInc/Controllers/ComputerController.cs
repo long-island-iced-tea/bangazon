@@ -34,5 +34,24 @@ namespace BangazonInc.Controllers
             var singleComputer = _computer.GetComputerById(id);
             return Ok(singleComputer);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteById(int id)
+        {
+            var computer = _computer.GetComputerById(id);
+
+            if (computer == null)
+            {
+                return NotFound();
+            }
+
+            var success = _computer.DeleteById(id);
+
+            if (success)
+            {
+                return Ok();
+            }
+            return BadRequest(new { Message = "Delete was unsuccessful" });
+        }
     }
 }

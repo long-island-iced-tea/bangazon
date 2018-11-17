@@ -182,8 +182,8 @@ Includes employee and company data.
 - `api/controller`
   - description and details
 #### DELETE
-- `api/controller`
-  - description and details
+- `api/computer/id`
+  - Deletes by id
 - `api/controller`
   - description and details
 

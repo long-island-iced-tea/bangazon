@@ -37,5 +37,16 @@ namespace BangazonInc.DataAccess
             }
         }
 
+        // Delete Single Computer
+
+        public bool DeleteById(int ComputerId)
+        {
+            using (var db = _db.GetConnection())
+            {
+                var sql = db.Execute("Delete from Computers Where Id = @id", new { id = ComputerId });
+                return sql == 1;
+            }
+        }
+
     }
 }
