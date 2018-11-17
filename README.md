@@ -154,6 +154,8 @@ Includes employee and company data.
   - Gets all departments
 - `api/department/id`
   - Gets single department by id
+- `api/department?include=employees`
+  - Returns all departments with the list of employees.
 #### POST
 - `api/department`
   - Adds new department to database, return 200 if successful
