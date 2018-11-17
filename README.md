@@ -18,6 +18,9 @@ Includes employee and company data.
   - Returns all customers with their payments
 - `api/customers?q=search`
   - Returns customers whose name properties matches the search term
+- `api/customers?active=true`
+  - Returns all customers that have an order associated with them
+  - `active=false` will return customers without orders
 #### POST
 - `api/customers`
   - Adds a new customer to the database
@@ -55,7 +58,7 @@ Includes employee and company data.
 
 #### PUT
 - `api/product/product`
-  - Updates product 
+  - Updates product
 #### DELETE
 - `api/product/{id}`
   - Deletes Product By Id
