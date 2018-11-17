@@ -64,5 +64,25 @@ namespace BangazonInc.DataAccess
             }
         }
 
+        // Post new Computer
+
+        public bool PostComputer (Computer computer)
+        {
+            using(var db= _db.GetConnection())
+            {
+                var sql = db.Execute(@"INSERT INTO [dbo].[Computers]
+                                       ([purchasedAt]
+                                       ,[decommissionedAt]
+                                       ,[isNew]
+                                       ,[isWorking])
+                                 VALUES
+                                       (@purchasedAt
+                                       ,@decommissionedAt
+                                       ,@isNew
+                                       ,@isWorking)", computer);
+                return sql == 1;
+            }
+        }
+
     }
 }

@@ -61,5 +61,12 @@ namespace BangazonInc.Controllers
             var computers = _computer.UpdateComputer(computer);
             return Ok();
         }
+
+        [HttpPost("computer")]
+        public IActionResult PostComputer(Computer computer)
+        {
+            var computers = _computer.PostComputer(computer);
+                return Ok();
+        }
     }
 }

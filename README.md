@@ -172,10 +172,8 @@ Includes employee and company data.
 - `api/computer/id`
   - Gets computer by id
 #### POST
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/computer/computer`
+  - Posts new computer
 #### PUT
 - `api/computer/computer`
   - Updates computer
