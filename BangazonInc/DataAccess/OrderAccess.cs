@@ -17,20 +17,72 @@ namespace BangazonInc.DataAccess
             _db = db;
         }
 
-        public List<Order> GetAllOrders()
+        public List<Order> GetAllOrders(bool? completed, string _include)
         {
             using (var sql = _db.GetConnection())
             {
-                return sql.Query<Order>("SELECT * FROM Orders").ToList();
+                var command = "SELECT * FROM Orders";
+
+                switch (completed)
+                {
+                    case true:
+                        command += " WHERE completed = 1";
+                        break;
+                    case false:
+                        command += " WHERE completed = 0";
+                        break;
+                }
+
+                var results = sql.Query<Order>(command).ToList();
+
+                if (_include == "customers")
+                {
+                    var customers = sql.Query<Customer>("SELECT * FROM Customers");
+                    results = results
+                        .Select(currentOrder => new OrderWithCustomer(currentOrder, customers.FirstOrDefault(x => x.Id == currentOrder.CustomerId)) as Order)
+                        .ToList();
+                }
+                else if (_include == "products")
+                {
+                    results = results.Select(x => AddProductsToOrder(x) as Order).ToList();
+                }
+
+                return results;
             }
         }
 
-        public Order GetSingleOrder(int id)
+        private OrderWithProducts AddProductsToOrder(Order workingOrder)
+        {
+            using (var sql = _db.GetConnection())
+            {
+                var command = @"
+SELECT p.id, p.Name, p.description, p.price, p.quantity, p.customerId, p.productType FROM Products AS p
+JOIN ProductOrders AS po ON po.ProductId = p.id
+WHERE po.OrderId = @OrderId";
+                var orderProducts = sql.Query<Product>(command, new { OrderId = workingOrder.Id });
+
+                return new OrderWithProducts(workingOrder, orderProducts.ToList());
+            }
+        }
+
+        public Order GetSingleOrder(int id, string _include)
         {
             using (var sql = _db.GetConnection())
             {
                 var param = new { orderId = id };
-                return sql.QueryFirstOrDefault<Order>("SELECT * FROM Orders WHERE Id = @orderId", param);
+                var requestedOrder = sql.QueryFirstOrDefault<Order>("SELECT * FROM Orders WHERE Id = @orderId", param);
+
+                if (_include == "customers")
+                {
+                    var cust = sql.QueryFirstOrDefault<Customer>("SELECT * FROM Customers WHERE Id = @Id", new { Id = requestedOrder.CustomerId });
+                    requestedOrder = new OrderWithCustomer(requestedOrder, cust);
+                }
+                else if (_include == "products")
+                {
+                    requestedOrder = AddProductsToOrder(requestedOrder);
+                }
+
+                return requestedOrder;
             }
         }
 

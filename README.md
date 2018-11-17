@@ -70,21 +70,11 @@ Includes employee and company data.
   - Returns payment type by  the payment type id
 
 #### POST
-<<<<<<< HEAD
-- `api/controller`
-  - description and details
-
-#### PUT
-- `api/controller`
-  - description and details
-
-=======
 - `api/PaymentType`
   - Able to add another payment type to the database
 #### PUT
 - `api/PaymentType`
   - Update an existing payment type by id
->>>>>>> master
 #### DELETE
 - `api/PaymentType/id`
   - Payment Type will delete by payment type ID
@@ -93,11 +83,18 @@ Includes employee and company data.
 #### GET
 - `api/orders`
   - Returns all orders in the database.
+  - Parameters:
+    - `?completed=true` or `completed=false`: Filters the returned orders by the Completed attribute.
+    - `?include=products`: Returned objects will also include the products associated with each order.
+    - `?include=customers`: Returned objects will also include the customer associated with each order.
 - `api/orders/{id}`
   - Returns the matching single order, or a `BadRequest` response if not found.
+  - Parameters:
+    - `?include=products`: Returned object will also include the associated products.
+    - `?include=customers`: Returned object will also include the associated customer.
 #### POST
 - `api/orders`
-  - Accepts an Order object and inserts it into the database, and returns the object including its assigned id.
+  - Accepts an Order object and inserts it into the database, and returns the Order object including its assigned id.
 #### PUT
 - `api/orders/{id}`
   - Accepts an Order object (ignoring the `id` attribute on the object, if present) and updates the URL-indicated order with the properties in it, then returns the modified order.
