@@ -177,10 +177,9 @@ Includes employee and company data.
 - `api/controller`
   - description and details
 #### PUT
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/computer/computer`
+  - Updates computer
+
 #### DELETE
 - `api/computer/id`
   - Deletes by id

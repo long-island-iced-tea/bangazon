@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BangazonInc.DataAccess;
+using BangazonInc.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -52,6 +53,13 @@ namespace BangazonInc.Controllers
                 return Ok();
             }
             return BadRequest(new { Message = "Delete was unsuccessful" });
+        }
+
+        [HttpPut("computer")]
+        public IActionResult UpdateComputer(Computer computer)
+        {
+            var computers = _computer.UpdateComputer(computer);
+            return Ok();
         }
     }
 }
