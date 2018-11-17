@@ -50,10 +50,9 @@ Includes employee and company data.
 - `api/product/{id}`
   - Reads single product by id
 #### POST
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/product/product`
+  - Posts new product
+
 #### PUT
 - `api/product/product`
   - Updates product 

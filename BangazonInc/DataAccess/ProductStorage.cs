@@ -47,6 +47,8 @@ namespace BangazonInc.DataAccess
             }
         }
 
+        // UPDATE PRODUCT
+
         public bool UpdateProduct(Product product)
         {
             using(var db= _db.GetConnection())
@@ -57,8 +59,32 @@ namespace BangazonInc.DataAccess
                                           ,[price] = @price
                                           ,[quantity] = @quantity
                                           ,[customerId] = @customerId
-                                          ,[productType] = productType
+                                          ,[productType] = @productType
                                             WHERE Id = @id", product);
+                return sql == 1;
+            }
+        }
+
+        // POST PRODUCT
+
+        public bool PostProduct (Product product)
+        {
+            using(var db= _db.GetConnection())
+            {
+                var sql = db.Execute(@" INSERT INTO [dbo].[Products]
+                                           ([Name]
+                                           ,[description]
+                                           ,[price]
+                                           ,[quantity]
+                                           ,[customerId]
+                                           ,[productType])
+                                     VALUES
+                                           (@Name
+                                           ,@description
+                                           ,@price
+                                           ,@quantity
+                                           ,@customerId
+                                           ,@productType)", product);
                 return sql == 1;
             }
         }

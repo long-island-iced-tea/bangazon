@@ -59,7 +59,14 @@ namespace BangazonInc.Controllers
         public IActionResult UpdateProduct(Product product)
         {
             var products = _product.UpdateProduct(product);
-            return Ok(); 
+            return Ok();
+        }
+
+        [HttpPost("product")]
+        public IActionResult PostProduct(Product product)
+        {
+            var products = _product.PostProduct(product);
+            return Ok();
         }
     }
 }
