@@ -23,7 +23,7 @@ namespace BangazonInc.DataAccess
         {
             using (var db = _db.GetConnection())
             {
-                string sql = @"e.*, c.*, d.name as DepartmentName
+                string sql = @"select e.*, c.*, d.name as DepartmentName
                                From Employees e
                                Join Department d
                                ON e.departmentId = d.id
@@ -40,7 +40,7 @@ namespace BangazonInc.DataAccess
         {
             using (var db = _db.GetConnection())
             {
-                var result = db.QueryFirst<Employee>(@"e.*, c.*, d.name as DepartmentName
+                var result = db.QueryFirst<Employee>(@"select e.*, c.*, d.name as DepartmentName
                                                        from Employees e
                                                        Join Department d
                                                        ON e.departmentId = d.id
