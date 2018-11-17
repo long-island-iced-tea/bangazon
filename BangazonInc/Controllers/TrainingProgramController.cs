@@ -36,5 +36,12 @@ namespace BangazonInc.Controllers
                 ? BadRequest() as IActionResult
                 : Ok(requestedTrainingProgram);
         }
+
+        // POST /api/trainingprogram
+        [HttpPost]
+        public IActionResult AddNewTrainingProgram(TrainingProgram prog)
+        {
+            return Ok(_tpa.AddNewProgram(prog));
+        }
     }
 }

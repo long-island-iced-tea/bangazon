@@ -58,5 +58,19 @@ WHERE et.ProgramId = @id";
                 return new TrainingProgramWithAttendees(baseProgram, sql.Query<Employee>(command, new { baseProgram.Id }).ToList());
             }
         }
+
+        public TrainingProgram AddNewProgram(TrainingProgram programToAdd)
+        {
+            using (var sql = _db.GetConnection())
+            {
+                var command = @"
+INSERT INTO TrainingProgram (name, startDate, endDate, maxAttendees) 
+OUTPUT INSERTED.*
+
+VALUES (@Name, @StartDate, @EndDate, @MaxAttendees)";
+
+                return sql.QueryFirstOrDefault<TrainingProgram>(command, programToAdd);
+            }
+        }
     }
 }

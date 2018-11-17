@@ -7,10 +7,10 @@ namespace BangazonInc.Models
 {
     public class TrainingProgram
     {
-        public int Id;
-        public string Name;
-        public DateTime StartDate;
-        public DateTime EndDate;
-        public int MaxAttendees;
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public DateTime StartDate { get; set; } = DateTime.Now.Date;
+        public DateTime EndDate { get; set; } = DateTime.Now.Date;
+        public int MaxAttendees { get; set; }
     }
 }
