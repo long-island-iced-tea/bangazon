@@ -36,5 +36,19 @@ namespace BangazonInc.DataAccess
                 return result == 1;
             }
         }
+
+        public bool Edit(Department department)
+        {
+            using (var db = _db.GetConnection())
+            {
+                string sql = @"UPDATE Department
+                                SET Name = @name,
+                                Budget = @budget,
+                                SupervisorId = @supervisorId
+                            WHERE Id = @id";
+                var result = db.Execute(sql, department);
+                return result == 1;
+            }
+        }
     }
 }

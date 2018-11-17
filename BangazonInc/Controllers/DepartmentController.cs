@@ -43,5 +43,20 @@ namespace BangazonInc.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpPut]
+        public IActionResult UpdateDepartment(Department d)
+        {
+            var success = _department.Edit(d);
+
+            if (success)
+            {
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
     }
 }
