@@ -167,8 +167,8 @@ Includes employee and company data.
 
 ### Computer
 #### GET
-- `api/controller`
-  - description and details
+- `api/computer`
+  - Gets all computers
 - `api/controller`
   - description and details
 #### POST
