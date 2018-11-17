@@ -23,10 +23,12 @@ namespace BangazonInc.DataAccess
         {
             using (var db = _db.GetConnection())
             {
-                string sql = @"select e.*, d.name 
+                string sql = @"e.*, c.*, d.name as DepartmentName
                                From Employees e
                                Join Department d
-                               ON e.departmentId = d.id";
+                               ON e.departmentId = d.id
+                               JOIN Computers c
+                               ON e.computerId = c.id";
                 return db.Query<Employee>(sql).ToList();
             }
         }
@@ -38,10 +40,12 @@ namespace BangazonInc.DataAccess
         {
             using (var db = _db.GetConnection())
             {
-                var result = db.QueryFirst<Employee>(@"select e.*, d.name 
+                var result = db.QueryFirst<Employee>(@"e.*, c.*, d.name as DepartmentName
                                                        from Employees e
                                                        Join Department d
                                                        ON e.departmentId = d.id
+                                                       JOIN computers c
+                                                       ON e.computerId = c.id
                                                        where e.Id = @id", new { id = employeeId });
                 return result;
             }
