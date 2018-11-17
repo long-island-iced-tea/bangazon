@@ -110,25 +110,33 @@ Includes employee and company data.
 
 ### ProductType
 #### GET
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/producttypes`
+  - Returns all product types.
+- `api/producttypes/{id}`
+  - Returns the product type with the matching id.
 #### POST
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/producttypes`
+  - Returns the product type just inserted
+  - Takes a body of
+  ```json
+  {
+    "name": "Product Type"
+  }
+  ```
 #### PUT
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/producttypes`
+  - Updates the product type name and returns the updated type
+  - Takes a body of
+  ```json
+  {
+    "id": 1,
+    "name": "Edited name"
+  }
+  ```
 #### DELETE
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/producttypes/{id}`
+  - Deletes the product type by id
+  - Returns 200 if successful
 
 ### Employee
 #### GET
