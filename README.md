@@ -50,15 +50,12 @@ Includes employee and company data.
 - `api/product/{id}`
   - Reads single product by id
 #### POST
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/product/product`
+  - Posts new product
+
 #### PUT
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/product/product`
+  - Updates product 
 #### DELETE
 - `api/product/{id}`
   - Deletes Product By Id
@@ -178,23 +175,20 @@ Includes employee and company data.
 
 ### Computer
 #### GET
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/computer`
+  - Gets all computers
+- `api/computer/id`
+  - Gets computer by id
 #### POST
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/computer/computer`
+  - Posts new computer
 #### PUT
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/computer/computer`
+  - Updates computer
+
 #### DELETE
-- `api/controller`
-  - description and details
+- `api/computer/id`
+  - Deletes by id
 - `api/controller`
   - description and details
 

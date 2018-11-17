@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BangazonInc.DataAccess;
+using BangazonInc.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -52,6 +53,20 @@ namespace BangazonInc.Controllers
                 return Ok();
             }
             return BadRequest(new { Message = "Delete was unsuccessful" });
+        }
+
+        [HttpPut("product")]
+        public IActionResult UpdateProduct(Product product)
+        {
+            var products = _product.UpdateProduct(product);
+            return Ok();
+        }
+
+        [HttpPost("product")]
+        public IActionResult PostProduct(Product product)
+        {
+            var products = _product.PostProduct(product);
+            return Ok();
         }
     }
 }
