@@ -52,7 +52,7 @@ namespace BangazonInc.DataAccess
         }
 
         /******************************
-           Update Payment Type
+           Update Employee
          ******************************/
         public bool Put(Employee employee)
         {

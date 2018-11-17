@@ -13,9 +13,6 @@ namespace BangazonInc.Models
         public int DepartmentId { get; set; }
         public int ComputerId { get; set; }
         public string DepartmentName { get; set; }
-        public string PurchasedAt { get; set; }
-        public string DecommissionedAt { get; set; }
-        public bool IsNew { get; set; }
-        public bool IsWorking { get; set; }
+        public Computer Computer { get; set; }
     }
 }
