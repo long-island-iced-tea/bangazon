@@ -16,26 +16,17 @@ namespace BangazonInc.Controllers
         DatabaseInterface _db;
         DepartmentStorage _department;
 
-        public DepartmentController(DatabaseInterface db)
+        public DepartmentController (DatabaseInterface db)
         {
             _db = db;
             _department = new DepartmentStorage(db);
         }
-
-
-
+        
         [HttpGet]
         public IActionResult GetAll()
         {
             var allDepts = _department.GetDept();
             return Ok(allDepts);
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult GetById(int id)
-        {
-            var singleDept = _department.GetDeptById(id);
-            return Ok(singleDept);
         }
 
         [HttpPost]
@@ -50,6 +41,21 @@ namespace BangazonInc.Controllers
             else
             {
                 return BadRequest();
+            }
+        }
+
+        [HttpPut]
+        public IActionResult UpdateDepartment(Department d)
+        {
+            var success = _department.Edit(d);
+
+            if (success)
+            {
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
             }
         }
     }
