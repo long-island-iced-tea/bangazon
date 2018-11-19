@@ -203,10 +203,10 @@ Includes employee and company data.
     - If the start or end dates are not specified, they will default to the current day.
 #### PUT
 - `api/trainingprogram/{id}`
-  - Updates the specified Training Program with the properties on the submitted one.  
+  - Updates the specified Training Program with the properties on the submitted one, then returns the modified TrainingProgram.
       - Any `id` property on the submitted object is ignored in favor of the one in the URL.
 #### DELETE
 - `api/trainingprogram/{id}`
-  - Deletes the specified Training Program from the database.
+  - Deletes and returns the specified Training Program from the database.
     - If the start date of the specified program is in the past, the program will not be deleted and an error message will be returned stating this.
 
