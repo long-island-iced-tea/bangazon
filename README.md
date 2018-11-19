@@ -191,23 +191,22 @@ Includes employee and company data.
 
 ### TrainingProgram
 #### GET
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/trainingprogram`
+  - Retrieves a list of all training programs including attending employees.
+  - Supported parameters:
+    - `?completed=true` or `false`: Filters the list by whether or not the Start Date has already passed.
+- `api/trainingprogram/{id}`
+  - Retrieves the specific Training Program including attending employees.
 #### POST
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/trainingprogram`
+  - Inserts a new Training Program into the database.
+    - If the start or end dates are not specified, they will default to the current day.
 #### PUT
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/trainingprogram/{id}`
+  - Updates the specified Training Program with the properties on the submitted one.  
+      - Any `id` property on the submitted object is ignored in favor of the one in the URL.
 #### DELETE
-- `api/controller`
-  - description and details
-- `api/controller`
-  - description and details
+- `api/trainingprogram/{id}`
+  - Deletes the specified Training Program from the database.
+    - If the start date of the specified program is in the past, the program will not be deleted and an error message will be returned stating this.
 

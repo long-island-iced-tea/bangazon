@@ -20,19 +20,19 @@ namespace BangazonInc.DataAccess
         {
             using (var sql = _db.GetConnection())
             {
-                var command = "SELECT * FROM TrainingProgram";
+                var programs = sql.Query<TrainingProgram>("SELECT * FROM TrainingProgram");
 
                 switch (completed)
                 {
                     case true:
-                        command += " WHERE StartDate < @now";
+                        programs = programs.Where(program => !CheckProgramStartDateIsFuture(program));
                         break;
                     case false:
-                        command += " WHERE StartDate >= @now";
+                        programs = programs.Where(CheckProgramStartDateIsFuture);
                         break;
                 }
 
-                return sql.Query<TrainingProgram>(command, new { now = DateTime.Now }).Select(GetAttendeesForTrainingProgram).ToList();
+                return programs.Select(GetAttendeesForTrainingProgram).ToList();
             }
         }
 
@@ -71,6 +71,40 @@ VALUES (@Name, @StartDate, @EndDate, @MaxAttendees)";
 
                 return sql.QueryFirstOrDefault<TrainingProgram>(command, programToAdd);
             }
+        }
+
+        public TrainingProgram ModifyProgram(int Id, TrainingProgram updatedProgram)
+        {
+            using (var sql = _db.GetConnection())
+            {
+                updatedProgram.Id = Id;
+
+                var command = @"UPDATE TrainingProgram
+                                SET name = @Name, startDate = @StartDate, endDate = @EndDate, maxAttendees = @MaxAttendees
+                                OUTPUT INSERTED.*
+                                WHERE Id = @Id";
+
+                return sql.QueryFirstOrDefault<TrainingProgram>(command, updatedProgram);
+            }
+        }
+
+        public object DeleteProgram(int Id)
+        {
+            using (var sql = _db.GetConnection())
+            {
+                var programToDelete = GetSingleProgramById(Id);
+
+                if (programToDelete == null) return new { Error = "The requested Training Program was not found." };
+                
+                if (!CheckProgramStartDateIsFuture(programToDelete)) return new { Error = "Cannot delete a Training Program with a start date in the past." };
+
+                return sql.QueryFirstOrDefault<TrainingProgram>("DELETE FROM TrainingProgram OUTPUT DELETED.* WHERE Id = @Id", new { Id });
+            }
+        }
+
+        public bool CheckProgramStartDateIsFuture(TrainingProgram tp)
+        {
+            return tp.StartDate >= DateTime.Now.Date;
         }
     }
 }

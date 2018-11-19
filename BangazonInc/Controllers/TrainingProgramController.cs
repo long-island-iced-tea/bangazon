@@ -43,5 +43,25 @@ namespace BangazonInc.Controllers
         {
             return Ok(_tpa.AddNewProgram(prog));
         }
+
+        // PUT /api/trainingprogram/5
+        [HttpPut("{id}")]
+        public IActionResult ModifyTrainingProgram(int Id, TrainingProgram prog)
+        {
+            var modifiedProgram = _tpa.ModifyProgram(Id, prog);
+            return modifiedProgram == null
+                ? BadRequest() as IActionResult
+                : Ok(modifiedProgram);
+        }
+
+        // DELETE /api/trainingprogram/5
+        [HttpDelete("{id}")]
+        public IActionResult DeleteTrainingProgram(int Id)
+        {
+            var deletedProgram = _tpa.DeleteProgram(Id);
+            return deletedProgram is TrainingProgram
+                ? Ok(deletedProgram)
+                : BadRequest(deletedProgram) as IActionResult;
+        }
     }
 }
