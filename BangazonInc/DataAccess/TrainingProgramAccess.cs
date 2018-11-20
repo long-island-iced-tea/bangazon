@@ -50,10 +50,15 @@ namespace BangazonInc.DataAccess
         {
             using (var sql = _db.GetConnection())
             {
-                var command = @"
-SELECT e.Id, e.firstName, e.lastName, e.departmentId, e.computerId FROM Employees AS e
-JOIN EmployeeTraining AS et ON e.Id = et.EmployeeId
-WHERE et.ProgramId = @id";
+                var command = @"SELECT 
+                                    e.Id, 
+                                    e.firstName, 
+                                    e.lastName, 
+                                    e.departmentId, 
+                                    e.computerId 
+                                FROM Employees AS e
+                                JOIN EmployeeTraining AS et ON e.Id = et.EmployeeId
+                                WHERE et.ProgramId = @id";
 
                 return new TrainingProgramWithAttendees(baseProgram, sql.Query<Employee>(command, new { baseProgram.Id }).ToList());
             }
@@ -63,11 +68,10 @@ WHERE et.ProgramId = @id";
         {
             using (var sql = _db.GetConnection())
             {
-                var command = @"
-INSERT INTO TrainingProgram (name, startDate, endDate, maxAttendees) 
-OUTPUT INSERTED.*
+                var command = @"INSERT INTO TrainingProgram (name, startDate, endDate, maxAttendees) 
+                                OUTPUT INSERTED.*
 
-VALUES (@Name, @StartDate, @EndDate, @MaxAttendees)";
+                                VALUES (@Name, @StartDate, @EndDate, @MaxAttendees)";
 
                 return sql.QueryFirstOrDefault<TrainingProgram>(command, programToAdd);
             }
