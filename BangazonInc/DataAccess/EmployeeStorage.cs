@@ -23,8 +23,22 @@ namespace BangazonInc.DataAccess
         {
             using (var db = _db.GetConnection())
             {
-                string sql = "SELECT * FROM Employees";
-                return db.Query<Employee>(sql).ToList();
+                string sql = @"SELECT 
+                                 e.id,
+                                 e.firstName,
+                                 e.lastName,
+                                 d.name as DepartmentName,
+                                 e.computerId as ComputerId
+                               FROM Employees e
+                               JOIN Department d
+                                 ON e.departmentId = d.id";
+                var employees = db.Query<Employee>(sql).ToList();
+                foreach (var employee in employees)
+                {
+                    var compSQL = db.QueryFirst<Computer>(@"Select * from Computers where id = @id", new {id = employee.ComputerId});
+                    employee.Computer = compSQL;
+                }
+                return employees;
             }
         }
 
@@ -35,15 +49,27 @@ namespace BangazonInc.DataAccess
         {
             using (var db = _db.GetConnection())
             {
-                var result = db.QueryFirst<Employee>(@"select * 
-                                                          from Employees
-                                                          where Id = @id", new { id = employeeId });
+                var result = db.QueryFirst<Employee>(@"
+                               SELECT 
+                                 e.id,
+                                 e.ComputerId,
+                                 e.firstName,
+                                 e.lastName,
+                                 d.name AS DepartmentName
+                               FROM Employees e
+                               JOIN Department d
+                                 ON e.departmentId = d.id
+                               WHERE e.Id = @id", new { id = employeeId });
+                var empComputer = db.QueryFirst<Computer>(@"Select * from Computers where id = @id", new {id = result.ComputerId});
+                
+                result.Computer = empComputer as Computer;
+
                 return result;
             }
         }
 
         /******************************
-           Update Payment Type
+           Update Employee
          ******************************/
         public bool Put(Employee employee)
         {

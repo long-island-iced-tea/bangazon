@@ -37,7 +37,7 @@ namespace BangazonInc.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdatePaymentType(Employee employee)
+        public IActionResult UpdateEmployee(Employee employee)
         {
             var success = _Employee.Put(employee);
             if (success)
