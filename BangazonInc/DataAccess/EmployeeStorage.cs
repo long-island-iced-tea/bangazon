@@ -28,17 +28,17 @@ namespace BangazonInc.DataAccess
                                  e.firstName,
                                  e.lastName,
                                  d.name as DepartmentName,
-                                 c.id as ComputerId,
-                                 c.purchasedAt as ComputerPurchased, 
-                                 c.decommissionedAt as ComputerDecommissioned,
-                                 c.isNew as ComputerIsNew,
-                                 c.isWorking as ComputerIsWorking
+                                 e.computerId as ComputerId
                                FROM Employees e
                                JOIN Department d
-                                 ON e.departmentId = d.id
-                               JOIN Computers c
-                                 ON e.computerId = c.id";
-                return db.Query<Employee>(sql).ToList();
+                                 ON e.departmentId = d.id";
+                var employees = db.Query<Employee>(sql).ToList();
+                foreach (var employee in employees)
+                {
+                    var compSQL = db.QueryFirst<Computer>(@"Select * from Computers where id = @id", new {id = employee.ComputerId});
+                    employee.Computer = compSQL;
+                }
+                return employees;
             }
         }
 
@@ -52,20 +52,18 @@ namespace BangazonInc.DataAccess
                 var result = db.QueryFirst<Employee>(@"
                                SELECT 
                                  e.id,
+                                 e.ComputerId,
                                  e.firstName,
                                  e.lastName,
-                                 d.name AS DepartmentName,
-                                 c.id AS ComputerId,
-                                 c.purchasedAt AS ComputerPurchased, 
-                                 c.decommissionedAt AS ComputerDecommissioned,
-                                 c.isNew AS ComputerIsNew,
-                                 c.isWorking AS ComputerIsWorking
+                                 d.name AS DepartmentName
                                FROM Employees e
                                JOIN Department d
                                  ON e.departmentId = d.id
-                               JOIN computers c
-                                 ON e.computerId = c.id
                                WHERE e.Id = @id", new { id = employeeId });
+                var empComputer = db.QueryFirst<Computer>(@"Select * from Computers where id = @id", new {id = result.ComputerId});
+                
+                result.Computer = empComputer as Computer;
+
                 return result;
             }
         }
