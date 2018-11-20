@@ -58,6 +58,29 @@ namespace BangazonInc.DataAccess
             }
         }
 
+        public List<Customer> GetCustomersWithOrders(bool? active)
+        {
+
+            string sql = @"SELECT c.* 
+                        FROM Customers c
+	                        LEFT JOIN Orders o ON c.id = o.CustomerId";
+
+            if (active == true)
+            {
+                sql += " WHERE o.Id IS NOT NULL";
+            }
+            else
+            {
+                sql += " WHERE o.Id IS NULL";
+            }
+
+            using (var db = _db.GetConnection())
+            {
+                return db.Query<Customer>(sql).ToList();
+            }
+
+        }
+
         public bool AddNew(Customer newCustomer)
         {
             using (var db = _db.GetConnection())
