@@ -91,15 +91,10 @@ WHERE po.OrderId = @OrderId";
             using (var sql = _db.GetConnection())
             {
                 var command = @"
-DECLARE @inserted TABLE (Id int, CustomerId int, paymentType int, completed bit, isActive bit);
-
 INSERT INTO Orders (CustomerId, paymentType, completed, isActive) 
-OUTPUT INSERTED.Id, INSERTED.CustomerId, INSERTED.paymentType, INSERTED.completed, INSERTED.isActive
-INTO @inserted
+OUTPUT INSERTED.*
 
-VALUES (@CustomerId, @PaymentType, @Completed, @IsActive)
-
-SELECT * FROM @inserted";
+VALUES (@CustomerId, @PaymentType, @Completed, @IsActive)";
 
                 return sql.QueryFirstOrDefault<Order>(command, newOrder);
             }
