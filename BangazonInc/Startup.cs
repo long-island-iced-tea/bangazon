@@ -27,7 +27,7 @@ namespace BangazonInc
         {
             var dbInterface = new DatabaseInterface(Configuration, "BangazonInc");
             services.AddSingleton<DatabaseInterface>(dbInterface);
-
+            services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -44,6 +44,12 @@ namespace BangazonInc
             }
 
             app.UseHttpsRedirection();
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins("*");
+                builder.WithMethods("*");
+                builder.WithHeaders("*");
+            });
             app.UseMvc();
         }
     }
