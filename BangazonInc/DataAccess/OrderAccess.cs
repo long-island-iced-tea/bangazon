@@ -38,30 +38,28 @@ namespace BangazonInc.DataAccess
                 if (_include == "customers")
                 {
                     var customers = sql.Query<Customer>("SELECT * FROM Customers");
-                    results = results
-                        .Select(currentOrder => new OrderWithCustomer(currentOrder, customers.FirstOrDefault(x => x.Id == currentOrder.CustomerId)) as Order)
-                        .ToList();
+                    foreach (var order in results)
+                    {
+                        order.Customer = customers.FirstOrDefault(c => c.Id == order.CustomerId);
+                    }
+                    
                 }
                 else if (_include == "products")
                 {
-                    results = results.Select(x => AddProductsToOrder(x) as Order).ToList();
+                    var products = sql.Query<Product>(@"SELECT 
+	                                                        p.*,
+	                                                        o.id AS orderId 
+                                                        FROM Orders o
+                                                        JOIN ProductOrders po ON o.id = po.OrderId 
+                                                        JOIN Products p ON p.id = po.ProductId");
+                    
+                    foreach (var order in results)
+                    {
+                        order.Products = products.Where(p => p.OrderId == order.Id).ToList();
+                    }
                 }
 
                 return results;
-            }
-        }
-
-        private OrderWithProducts AddProductsToOrder(Order workingOrder)
-        {
-            using (var sql = _db.GetConnection())
-            {
-                var command = @"
-SELECT p.id, p.Name, p.description, p.price, p.quantity, p.customerId, p.productType FROM Products AS p
-JOIN ProductOrders AS po ON po.ProductId = p.id
-WHERE po.OrderId = @OrderId";
-                var orderProducts = sql.Query<Product>(command, new { OrderId = workingOrder.Id });
-
-                return new OrderWithProducts(workingOrder, orderProducts.ToList());
             }
         }
 
@@ -75,11 +73,18 @@ WHERE po.OrderId = @OrderId";
                 if (_include == "customers")
                 {
                     var cust = sql.QueryFirstOrDefault<Customer>("SELECT * FROM Customers WHERE Id = @Id", new { Id = requestedOrder.CustomerId });
-                    requestedOrder = new OrderWithCustomer(requestedOrder, cust);
+                    requestedOrder.Customer = cust;
                 }
                 else if (_include == "products")
                 {
-                    requestedOrder = AddProductsToOrder(requestedOrder);
+                    var products = sql.Query<Product>(@"SELECT 
+	                                                        p.*,
+	                                                        o.id AS orderId 
+                                                        FROM Orders o
+                                                        JOIN ProductOrders po ON o.id = po.OrderId 
+                                                        JOIN Products p ON p.id = po.ProductId");
+
+                    requestedOrder.Products = products.Where(p => p.OrderId == requestedOrder.Id).ToList();
                 }
 
                 return requestedOrder;

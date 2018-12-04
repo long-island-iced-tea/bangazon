@@ -34,26 +34,24 @@ namespace BangazonInc.DataAccess
             }
         }
 
-        public List<CustomerWithProducts> GetCustomersWithProducts()
+        public List<Customer> GetCustomersWithProducts()
         {
-            var customersWithProducts = new List<CustomerWithProducts>();
 
             using (var db = _db.GetConnection())
             {
                 string sql = @"
                             SELECT *
-                            FROM Products
-                            WHERE CustomerId = @id";
+                            FROM Products";
+
                 var customers = GetCustomers();
+                var products = db.Query<Product>(sql).ToList();
+
                 foreach (var customer in customers)
                 {
-                    var custWithProducts = new CustomerWithProducts(customer);
-                    var products = db.Query<Product>(sql, new { id = customer.Id }).ToList();
-                    custWithProducts.Products = products;
-                    customersWithProducts.Add(custWithProducts);
+                    customer.Products = products.Where(p => p.CustomerId == customer.Id).ToList();
                 }
 
-                return customersWithProducts;
+                return customers;
                 
             }
         }
@@ -123,26 +121,23 @@ namespace BangazonInc.DataAccess
 
         }
 
-        public List<CustomerWithPayments> GetCustomersWithPayments()
+        public List<Customer> GetCustomersWithPayments()
         {
-            var customersWithPayments = new List<CustomerWithPayments>();
 
             using (var db = _db.GetConnection())
             {
                 string sql = @"
                             SELECT *
-                            FROM PaymentType
-                            WHERE CustomerId = @id";
+                            FROM PaymentType";
+
                 var customers = GetCustomers();
+                var payments = db.Query<PaymentType>(sql).ToList();
                 foreach (var customer in customers)
                 {
-                    var custWithPayments = new CustomerWithPayments(customer);
-                    var payments = db.Query<PaymentType>(sql, new { id = customer.Id }).ToList();
-                    custWithPayments.Payments = payments;
-                    customersWithPayments.Add(custWithPayments);
+                    customer.Payments = payments.Where(p => p.CustomerId == customer.Id).ToList();
                 }
 
-                return customersWithPayments;
+                return customers;
                 
             }
         }

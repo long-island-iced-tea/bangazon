@@ -12,5 +12,6 @@ namespace BangazonInc.Models
         public DateTime StartDate { get; set; } = DateTime.Now.Date;
         public DateTime EndDate { get; set; } = DateTime.Now.Date;
         public int MaxAttendees { get; set; }
+        public List<Employee> Attendees { get; set; }
     }
 }

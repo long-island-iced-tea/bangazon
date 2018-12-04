@@ -12,5 +12,7 @@ namespace BangazonInc.Models
         public int PaymentType { get; set; }
         public bool Completed { get; set; }
         public bool IsActive { get; set; }
+        public Customer Customer { get; set; }
+        public List<Product> Products { get; set; }
     }
 }

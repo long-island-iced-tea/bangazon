@@ -16,7 +16,7 @@ namespace BangazonInc.DataAccess
             _db = db;
         }
 
-        public List<TrainingProgramWithAttendees> GetAllPrograms(bool? completed)
+        public List<TrainingProgram> GetAllPrograms(bool? completed)
         {
             using (var sql = _db.GetConnection())
             {
@@ -36,7 +36,7 @@ namespace BangazonInc.DataAccess
             }
         }
 
-        public TrainingProgramWithAttendees GetSingleProgramById (int id)
+        public TrainingProgram GetSingleProgramById (int id)
         {
             using (var sql = _db.GetConnection())
             {
@@ -46,7 +46,7 @@ namespace BangazonInc.DataAccess
             }
         }
 
-        private TrainingProgramWithAttendees GetAttendeesForTrainingProgram (TrainingProgram baseProgram)
+        private TrainingProgram GetAttendeesForTrainingProgram (TrainingProgram baseProgram)
         {
             using (var sql = _db.GetConnection())
             {
@@ -60,7 +60,8 @@ namespace BangazonInc.DataAccess
                                 JOIN EmployeeTraining AS et ON e.Id = et.EmployeeId
                                 WHERE et.ProgramId = @id";
 
-                return new TrainingProgramWithAttendees(baseProgram, sql.Query<Employee>(command, new { baseProgram.Id }).ToList());
+                baseProgram.Attendees = sql.Query<Employee>(command, new { baseProgram.Id }).ToList();
+                return baseProgram;
             }
         }
 
