@@ -40,10 +40,9 @@ namespace BangazonInc.DataAccess
 
         }
 
-        public List<DepartmentWithEmployees> GetWithEmployees()
+        public List<Department> GetWithEmployees()
         {
             var depts = GetDept();
-            var deptResponse = new List<DepartmentWithEmployees>();
 
             using (var db = _db.GetConnection())
             {
@@ -52,13 +51,10 @@ namespace BangazonInc.DataAccess
 
                 foreach(var dept in depts)
                 {
-                    var deptWithEmployees = new DepartmentWithEmployees(dept);
-                    var employeesInDept = employees.Where(e => e.DepartmentId == dept.Id).ToList();
-                    deptWithEmployees.Employees = employeesInDept;
-                    deptResponse.Add(deptWithEmployees);
+                    dept.Employees = employees.Where(e => e.DepartmentId == dept.Id).ToList();
                 }
 
-                return deptResponse;
+                return depts;
             }
         }
 

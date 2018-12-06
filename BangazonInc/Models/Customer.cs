@@ -12,5 +12,7 @@ namespace BangazonInc.Models
         public string LastName { get; set; }
         public DateTime CreatedAt { get; set; }
         public bool IsActive { get; set; }
+        public IEnumerable<Product> Products { get; set; }
+        public IEnumerable<PaymentType> Payments { get; set; }
     }
 }
