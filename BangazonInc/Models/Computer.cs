@@ -13,5 +13,7 @@ namespace BangazonInc.Models
         public DateTime createdAt { get; set; }
         public bool isNew { get; set; }
         public bool isWorking { get; set; }
+        public string Make { get; set; }
+        public string Model { get; set; }
     }
 }

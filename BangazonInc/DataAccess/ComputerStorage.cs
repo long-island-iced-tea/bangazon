@@ -59,6 +59,8 @@ namespace BangazonInc.DataAccess
                                           ,[decommissionedAt] = @decommissionedAt
                                           ,[isNew] = @isNew
                                           ,[isWorking] = @isWorking
+                                          ,[Make] = @make
+                                          ,[Model] = @model
                                             Where Id = @id", computer);
                 return sql == 1;
             }
@@ -71,15 +73,14 @@ namespace BangazonInc.DataAccess
             using(var db= _db.GetConnection())
             {
                 var sql = db.Execute(@"INSERT INTO [dbo].[Computers]
-                                       ([purchasedAt]
-                                       ,[decommissionedAt]
-                                       ,[isNew]
-                                       ,[isWorking])
+                                       
                                  VALUES
                                        (@purchasedAt
                                        ,@decommissionedAt
                                        ,@isNew
-                                       ,@isWorking)", computer);
+                                       ,@isWorking
+                                       ,@make
+                                       ,@model)", computer);
                 return sql == 1;
             }
         }
