@@ -35,7 +35,7 @@ namespace BangazonInc.DataAccess
                 var employees = db.Query<Employee>(sql).ToList();
                 foreach (var employee in employees)
                 {
-                    var compSQL = db.QueryFirst<Computer>(@"Select * from Computers where id = @id", new {id = employee.ComputerId});
+                    var compSQL = db.QueryFirstOrDefault<Computer>(@"Select * from Computers where id = @id", new {id = employee.ComputerId});
                     employee.Computer = compSQL;
                 }
                 return employees;
