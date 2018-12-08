@@ -64,23 +64,36 @@ namespace BangazonInc.DataAccess
             }
         }
 
+        public async Task<ComputerWithEmployeeId> PostComputerAndAssignToEmployee(ComputerWithEmployeeId computer)
+        {
+            var insertedComputer = new ComputerWithEmployeeId(await PostComputer(computer));
+            using (var db = _db.GetConnection())
+            {
+                var updated = db.Execute(@"UPDATE Employees
+                                            SET computerId = @ComputerId
+                                            WHERE id = @EmployeeId", new { ComputerId = insertedComputer.Id, computer.EmployeeId });
+                if (updated == 1) insertedComputer.EmployeeId = computer.EmployeeId;
+                return insertedComputer;
+            }
+        }
+
         // Post new Computer
 
-        public bool PostComputer (Computer computer)
+        public async Task<Computer> PostComputer (Computer computer)
         {
             using(var db= _db.GetConnection())
             {
-                var sql = db.Execute(@"INSERT INTO [dbo].[Computers]
+                return await db.QueryFirstOrDefaultAsync<Computer>(@"INSERT INTO [dbo].[Computers]
                                        ([purchasedAt]
                                        ,[decommissionedAt]
                                        ,[isNew]
                                        ,[isWorking])
+                                 OUTPUT INSERTED.*
                                  VALUES
                                        (@purchasedAt
                                        ,@decommissionedAt
                                        ,@isNew
                                        ,@isWorking)", computer);
-                return sql == 1;
             }
         }
 

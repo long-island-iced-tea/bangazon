@@ -63,10 +63,11 @@ namespace BangazonInc.Controllers
         }
 
         [HttpPost("computer")]
-        public IActionResult PostComputer(Computer computer)
+        public async Task<ActionResult<Computer>> PostComputer(ComputerWithEmployeeId computer)
         {
-            var computers = _computer.PostComputer(computer);
-                return Ok();
+            return computer.EmployeeId is null
+                ? Ok(await _computer.PostComputer(computer))
+                : Ok(await _computer.PostComputerAndAssignToEmployee(computer));
         }
     }
 }
