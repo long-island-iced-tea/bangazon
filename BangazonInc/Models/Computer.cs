@@ -8,8 +8,8 @@ namespace BangazonInc.Models
     public class Computer
     {
         public int Id { get; set; }
-        public DateTime purchasedAt { get; set; }
-        public DateTime decommissionedAt { get; set; }
+        public DateTime? purchasedAt { get; set; }
+        public DateTime? decommissionedAt { get; set; }
         public DateTime createdAt { get; set; }
         public bool isNew { get; set; }
         public bool isWorking { get; set; }
