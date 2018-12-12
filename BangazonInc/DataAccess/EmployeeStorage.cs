@@ -24,11 +24,8 @@ namespace BangazonInc.DataAccess
             using (var db = _db.GetConnection())
             {
                 string sql = @"SELECT 
-                                 e.id,
-                                 e.firstName,
-                                 e.lastName,
-                                 d.name as DepartmentName,
-                                 e.computerId as ComputerId
+                                 e.*,
+                                 d.name as DepartmentName
                                FROM Employees e
                                JOIN Department d
                                  ON e.departmentId = d.id";
