@@ -102,7 +102,8 @@ namespace BangazonInc.DataAccess
                             UPDATE Customers
                                 SET firstName = @firstName,
                                 lastName = @lastName,
-                                isActive = @isActive
+                                isActive = @isActive,
+                                createdAt = @createdAt
                             WHERE Id = @id";
                 var result = db.Execute(sql, newCustomer);
                 return result == 1;

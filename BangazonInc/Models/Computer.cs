@@ -10,7 +10,6 @@ namespace BangazonInc.Models
         public int Id { get; set; }
         public DateTime? PurchasedAt { get; set; }
         public DateTime? DecommissionedAt { get; set; }
-        public DateTime CreatedAt { get; set; }
         public bool IsNew { get; set; }
         public bool IsWorking { get; set; }
         public string Make { get; set; }
