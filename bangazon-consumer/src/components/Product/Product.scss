@@ -1,0 +1,26 @@
+.Product {
+  text-align: left;
+  width: 25%;
+  padding: 1em;
+  .price {
+    position: absolute;
+    top: -50%;
+    right: -1em;
+    height: 5em;
+    width: 5em;
+    border-radius: 50%;
+    background-color: yellow;
+    border: 1px solid darken(yellow, 10%);
+    padding: 1em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .name {
+
+  }
+  .category {
+    font-style: italic;
+  }
+}
