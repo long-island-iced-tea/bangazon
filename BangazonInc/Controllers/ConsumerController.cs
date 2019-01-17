@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BangazonInc.DataAccess;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BangazonInc.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController, Authorize]
+    
     public class ConsumerController : ControllerBase
     {
         DatabaseInterface _db;
         ProductStorage _product;
+        UserStorage _user;
+        OrderStorage _orders;
 
 
         public ConsumerController(DatabaseInterface db)
@@ -53,6 +57,11 @@ namespace BangazonInc.Controllers
         }
 
         //register GET: adds new customer with firebase uid
+        [HttpPost]
+        public IActionResult addUser()
+        {
+            return Ok();
+        }
         //order POST adds new order and productorders
     }
 }
