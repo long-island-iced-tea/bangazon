@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.scss';
+import ProductLanding from '../components/ProductLanding/ProductLanding';
 
 class App extends Component {
   render() {
@@ -8,7 +9,7 @@ class App extends Component {
       <div className="App">
         <BrowserRouter>
           <Switch>
-            <Route path="/" exact render={(p) => <h1>Product Landing</h1>} />
+            <Route path="/" exact component={ProductLanding} />
           </Switch>
         </BrowserRouter>
       </div>
