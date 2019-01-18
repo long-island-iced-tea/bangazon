@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BangazonInc.DataAccess;
+using BangazonInc.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,52 +17,80 @@ namespace BangazonInc.Controllers
     {
         DatabaseInterface _db;
         ProductStorage _product;
-        UserStorage _user;
-        OrderStorage _orders;
+        CustomerStorage _user;
+        OrderAccess _orders;
+
 
 
         public ConsumerController(DatabaseInterface db)
         {
             _db = db;
             _product = new ProductStorage(db);
+            _user = new CustomerStorage(db);
+            _orders = new OrderAccess(db);
         }
         //products GET: Gets all products
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok();
+            var allProducts = _product.GetProduct();
+            return Ok(allProducts);
         }
+
+        
         //products/recent GET: Gets 20 recent products
-        [HttpGet("products/recent")]
-        public IActionResult GetRecent()
+        [HttpGet()]
+        public IActionResult GetRecentProducts()
         {
             return Ok();
         }
 
         //products? q = GET: Search products, has q as a parameter
-        [HttpGet("products/")]
-        public IActionResult searchProducts()
+      
+        [HttpGet]
+        public IActionResult Get(string q)
         {
-            return Ok();
+                return Ok(_product.GetProductsByTerm(q));  
         }
+
         //products/category GET: Gets products sorted by product type
         [HttpGet("products/catagory/{id}")]
 
         //GET: Gets product by Id
-        [HttpGet("products/{id}")]
+        [HttpGet("{id}")]
+        public IActionResult GetProductById(int id)
+        {
+            var singleProduct = _product.GetProductById(id);
+            return Ok(singleProduct);
+        }
+
         //login GET: returns the authenticated user by uid
         [HttpGet("{id}")]
         public IActionResult getUser(int id) {
-            return Ok();
-            
+            var user = _user.GetCustomerById(id);
+            return Ok(user);
         }
 
-        //register GET: adds new customer with firebase uid
+        //register GET: new customer with firebase uid
         [HttpPost]
-        public IActionResult addUser()
+        public IActionResult AddCustomer(Customer newCustomer)
         {
-            return Ok();
+            var success = _user.AddNew(newCustomer);
+
+            if (success)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
         //order POST adds new order and productorders
+        [HttpPost]
+        public IActionResult AddNewOrder(Order newOrder)
+        {
+            return Ok(_orders.AddNewOrder(newOrder));
+        }
     }
 }
