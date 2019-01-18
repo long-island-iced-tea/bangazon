@@ -1,5 +1,6 @@
 import React from 'react';
 import './ProductLanding.scss';
+import Product from '../Product/Product';
 
 class ProductLanding extends React.Component {
 
@@ -28,6 +29,21 @@ class ProductLanding extends React.Component {
         name: 'Yet another product',
         category: 'categoryyyyy',
         price: 0.83
+      },
+      {
+        name: 'Wowza',
+        category: 'cattt',
+        price: 0.99,
+      },
+      {
+        name: 'Long-named Product for your purchasing requirements',
+        category: 'Category1',
+        price: 4.99,
+      },
+      {
+        name: 'Yet another product',
+        category: 'categoryyyyy',
+        price: 2.01
       }
     ];
 
@@ -37,11 +53,16 @@ class ProductLanding extends React.Component {
   render () {
     return (
       <div className='ProductLanding'>
-        <h2>Newest Products</h2>
+        <h1 className="bangazon">Welcome to Bangazon!</h1>
+        <h2 className="title">Newest Products</h2>
         <div className="container">
           <div className="row">
             {
-              this.state.products.map(prod => <h3>{prod.name}</h3>)
+              this.state.products.map(prod => (
+                <div className="col-4">
+                  <Product product={prod} />
+                </div>
+              ))
             }
           </div>
         </div>
