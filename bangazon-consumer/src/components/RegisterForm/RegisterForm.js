@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './RegisterForm.scss';
 
 class RegisterForm extends React.Component {
@@ -52,6 +53,7 @@ class RegisterForm extends React.Component {
                 </div>
               </div>
               <button type="submit" className="btn btn-primary">Register</button>
+              <small><Link to="/login">Already registered?</Link></small>
             </form>
           </div>
         </div>

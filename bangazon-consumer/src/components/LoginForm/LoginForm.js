@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './LoginForm.scss';
 
 class LoginForm extends React.Component {
@@ -41,6 +42,7 @@ class LoginForm extends React.Component {
                 <input type="password" id="password" className="form-control" placeholder="Password" value={this.state.user.password} onChange={this.onInputChange} />
               </div>
               <button type="submit" className="btn btn-primary">Login</button>
+              <small><Link to="/register">Don't have an account?</Link></small>
             </form>
           </div>
         </div>
