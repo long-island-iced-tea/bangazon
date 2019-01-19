@@ -30,34 +30,34 @@ namespace BangazonInc.Controllers
             _orders = new OrderAccess(db);
         }
         //products GET: Gets all products
-        [HttpGet]
+        [HttpGet("products")]
         public IActionResult Get()
         {
             var allProducts = _product.GetProduct();
             return Ok(allProducts);
         }
 
-        
+
         //products/recent GET: Gets 20 recent products
-        [HttpGet()]
+        [HttpGet("products/recent")]
         public IActionResult GetRecentProducts()
         {
             return Ok();
         }
 
         //products? q = GET: Search products, has q as a parameter
-      
-        [HttpGet]
+
+        [HttpGet("products")]
         public IActionResult Get(string q)
         {
                 return Ok(_product.GetProductsByTerm(q));  
         }
 
         //products/category GET: Gets products sorted by product type
-        [HttpGet("products/catagory/{id}")]
+        [HttpGet("products/category")]
 
         //GET: Gets product by Id
-        [HttpGet("{id}")]
+        [HttpGet("products/{id}")]
         public IActionResult GetProductById(int id)
         {
             var singleProduct = _product.GetProductById(id);
@@ -65,14 +65,14 @@ namespace BangazonInc.Controllers
         }
 
         //login GET: returns the authenticated user by uid
-        [HttpGet("{id}")]
+        [HttpGet("login")]
         public IActionResult getUser(int id) {
             var user = _user.GetCustomerById(id);
             return Ok(user);
         }
 
         //register GET: new customer with firebase uid
-        [HttpPost]
+        [HttpPost("register")]
         public IActionResult AddCustomer(Customer newCustomer)
         {
             var success = _user.AddNew(newCustomer);
@@ -87,7 +87,7 @@ namespace BangazonInc.Controllers
             }
         }
         //order POST adds new order and productorders
-        [HttpPost]
+        [HttpPost("order")]
         public IActionResult AddNewOrder(Order newOrder)
         {
             return Ok(_orders.AddNewOrder(newOrder));
