@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // import Browserouter from 'react-router-dom';
 import Navbar from '../components/Navbar/Navbar';
+import Footer from '../components/Footer/Footer';
 import './App.scss';
 
 class App extends Component {
@@ -9,6 +10,7 @@ class App extends Component {
       <div>
         <Navbar/>
         {/* <Browserouter/> */}
+        <Footer/>
       </div>
     );
   }
