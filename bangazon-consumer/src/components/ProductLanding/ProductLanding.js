@@ -1,6 +1,7 @@
 import React from 'react';
 import './ProductLanding.scss';
 import Product from '../Product/Product';
+import apiAccess from '../../api-access/api';
 
 class ProductLanding extends React.Component {
 
@@ -13,7 +14,7 @@ class ProductLanding extends React.Component {
   }
 
   getNewestProducts = () => {
-    apiAccess.apiGet('product')
+    apiAccess.apiGet('product/recent')
       .then(res => {
         this.setState({products: res.data});
       });
