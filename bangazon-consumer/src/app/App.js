@@ -37,18 +37,25 @@ class App extends Component {
     this.authListener();
   }
 
+  signOut = (e) => {
+    e.preventDefault();
+    this.setState({auth: false});
+  }
+
   render() {
     return (
       <div className="App Site">
       <div className="Site-content">
-        <Navbar/>
         <BrowserRouter>
-          <Switch>
-            <Route path="/" exact component={ProductLanding} />
-            <Route path="/login" component={LoginForm} />
-            <Route path="/register" component={RegisterForm} />
-            <Route path="/product/:id" render={(props) => <ProductDetails auth={this.state.auth} {...props} />} />
-          </Switch>
+          <div>
+            <Navbar auth={this.state.auth} logOff={this.signOut}/>
+            <Switch>
+              <Route path="/" exact component={ProductLanding} />
+              <Route path="/login" component={LoginForm} />
+              <Route path="/register" component={RegisterForm} />
+              <Route path="/product/:id" render={(props) => <ProductDetails auth={this.state.auth} {...props} />} />
+            </Switch>
+          </div>
         </BrowserRouter>
         </div>
         <Footer/>
