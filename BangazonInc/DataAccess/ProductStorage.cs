@@ -31,6 +31,7 @@ namespace BangazonInc.DataAccess
             using (var db = _db.GetConnection())
             {
                 string sql = @"select top 20 
+                                 prod.Id id,
                                  prod.Name name,
                                  prod.description description,
                                  prod.price price,
