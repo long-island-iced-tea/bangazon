@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import './App.scss';
+import Navbar from '../components/Navbar/Navbar';
+import Footer from '../components/Footer/Footer';
 import LoginForm from '../components/LoginForm/LoginForm';
 import RegisterForm from '../components/RegisterForm/RegisterForm';
 import ProductLanding from '../components/ProductLanding/ProductLanding';
 import * as FIREBASE from 'firebase';
 import firebase from '../firebase/index';
+import './App.scss';
 import ProductDetails from '../components/ProductDetails/ProductDetails';
+
 
 firebase.init();
 
@@ -39,7 +42,9 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App Site">
+      <div className="Site-content">
+        <Navbar/>
         <BrowserRouter>
           <Switch>
             <Route path="/" exact component={ProductLanding} />
@@ -48,6 +53,8 @@ class App extends Component {
             <Route path="/product/:id" render={(props) => <ProductDetails auth={this.state.auth} {...props} />} />
           </Switch>
         </BrowserRouter>
+        </div>
+        <Footer/>
       </div>
     );
   }
