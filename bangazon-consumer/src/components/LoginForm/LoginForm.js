@@ -2,30 +2,49 @@ import React from 'react';
 import './LoginForm.scss';
 
 class LoginForm extends React.Component {
+
   state = {
-    user : {
+    user: {
       email: '',
       password: ''
     }
   }
+
   onInputChange = (e) => {
-    const {user} = {...this.state};
+    const { user } = { ...this.state };
     user[e.target.name] = e.target.value;
-    this.setState({user});
+    this.setState({ user });
   }
-  render () {
+
+  submitLogin = (e) => {
+    e.preventDefault();
+    const { user } = this.state;
+
+    // Send user to firebase auth method
+    console.log(user);
+
+  }
+
+  render() {
     return (
-      <form className='LoginForm'>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" name="email" className="form-control" placeholder="Enter email" value={this.state.user.email} onChange={this.onInputChange} />
+      <div className='LoginForm'>
+        <h2>Login to Bangazon!</h2>
+        <div className="container">
+          <div className="row justify-content-center">
+            <form className='card' onSubmit={this.submitLogin}>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" name="email" className="form-control" placeholder="Enter email" value={this.state.user.email} onChange={this.onInputChange} />
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" name="password" className="form-control" placeholder="Password" value={this.state.user.password} onChange={this.onInputChange} />
+              </div>
+              <button type="submit" className="btn btn-primary">Login</button>
+            </form>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" name="password" className="form-control" placeholder="Password" value={this.state.user.password} onChange={this.onInputChange} />
-        </div>
-        <button type="submit" className="btn btn-primary">Submit</button>
-      </form>
+      </div>
     );
   }
 };
