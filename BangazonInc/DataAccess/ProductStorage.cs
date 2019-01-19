@@ -26,12 +26,20 @@ namespace BangazonInc.DataAccess
         }
 
         // Get recent PRODUCTS
-        public List<Product> GetRecentProducts()
+        public List<UpdatedProduct> GetRecentProducts()
         {
             using (var db = _db.GetConnection())
             {
-                string sql = "select top 20 * from Products order by id DESC";
-                return db.Query<Product>(sql).ToList();
+                string sql = @"select top 20 
+                                 prod.Name name,
+                                 prod.description description,
+                                 prod.price price,
+                                 pt.Name category
+                               from Products prod
+                               join ProductTypes pt 
+                                 on prod.productType = pt.id
+                               order by prod.id DESC";
+                return db.Query<UpdatedProduct>(sql).ToList();
             }
         }
 
