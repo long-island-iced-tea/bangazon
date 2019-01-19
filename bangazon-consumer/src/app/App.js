@@ -18,7 +18,7 @@ class App extends Component {
     this.authListener = FIREBASE.auth().onAuthStateChanged(user => {
       if (user) {
         // If user is logged in, set token in localStorage
-        user.getIdToken(token => {
+        user.getIdToken().then(token => {
           localStorage.setItem('token', token);
           this.setState({auth: true});
         });
@@ -36,7 +36,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>The user is authed: {this.state.auth.toString()}</h1>
         <BrowserRouter>
           <Switch>
             <Route path="/" exact component={ProductLanding} />

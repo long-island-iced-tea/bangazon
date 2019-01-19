@@ -39,11 +39,11 @@ class LoginForm extends React.Component {
           <div className="row justify-content-center">
             <form className='card' onSubmit={this.submitLogin}>
               <div className="form-group">
-                <label for="email">Email address</label>
+                <label htmlFor="email">Email address</label>
                 <input type="email" id="email" className="form-control" placeholder="Enter email" value={this.state.user.email} onChange={this.onInputChange} />
               </div>
               <div className="form-group">
-                <label for="password">Password</label>
+                <label htmlFor="password">Password</label>
                 <input type="password" id="password" className="form-control" placeholder="Password" value={this.state.user.password} onChange={this.onInputChange} />
               </div>
               {
