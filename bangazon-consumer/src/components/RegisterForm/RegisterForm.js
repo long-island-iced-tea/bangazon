@@ -14,7 +14,7 @@ class RegisterForm extends React.Component {
 
   onInputChange = (e) => {
     const { user } = { ...this.state };
-    user[e.target.name] = e.target.value;
+    user[e.target.id] = e.target.value;
     this.setState({ user });
   }
 
@@ -34,21 +34,21 @@ class RegisterForm extends React.Component {
           <div className="row justify-content-center">
             <form className='card' onSubmit={this.submitRegistration}>
               <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" name="email" className="form-control" placeholder="Enter email" value={this.state.user.email} onChange={this.onInputChange} />
+                <label for="email">Email address</label>
+                <input type="email" id="email" className="form-control" placeholder="Enter email" value={this.state.user.email} onChange={this.onInputChange} />
               </div>
               <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" name="password" className="form-control" placeholder="Password" value={this.state.user.password} onChange={this.onInputChange} />
+                <label for="password">Password</label>
+                <input type="password" id="password" className="form-control" placeholder="Password" value={this.state.user.password} onChange={this.onInputChange} />
               </div>
               <div className="form-row">
                 <div class="form-group col">
-                  <label for="exampleInputPassword1">First Name</label>
-                  <input type="text" name="firstName" className="form-control" placeholder="John" value={this.state.user.firstName} onChange={this.onInputChange} />
+                  <label for="firstName">First Name</label>
+                  <input type="text" id="firstName" className="form-control" placeholder="John" value={this.state.user.firstName} onChange={this.onInputChange} />
                 </div>
                 <div class="form-group col">
-                  <label for="exampleInputPassword1">Last Name</label>
-                  <input type="text" name="lastName" className="form-control" placeholder="Smith" value={this.state.user.lastName} onChange={this.onInputChange} />
+                  <label for="lastName">Last Name</label>
+                  <input type="text" id="lastName" className="form-control" placeholder="Smith" value={this.state.user.lastName} onChange={this.onInputChange} />
                 </div>
               </div>
               <button type="submit" className="btn btn-primary">Register</button>
