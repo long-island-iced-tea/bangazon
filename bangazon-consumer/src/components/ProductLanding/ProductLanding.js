@@ -13,41 +13,10 @@ class ProductLanding extends React.Component {
   }
 
   getNewestProducts = () => {
-    // provides dummy data, will replace with api call
-    const products = [
-      {
-        name: 'Super cool product',
-        category: 'Cat1',
-        price: 2.99,
-      },
-      {
-        name: 'Another awesome product',
-        category: 'Category1',
-        price: 9.99,
-      },
-      {
-        name: 'Yet another product',
-        category: 'categoryyyyy',
-        price: 0.83
-      },
-      {
-        name: 'Wowza',
-        category: 'cattt',
-        price: 0.99,
-      },
-      {
-        name: 'Long-named Product for your purchasing requirements',
-        category: 'Category1',
-        price: 4.99,
-      },
-      {
-        name: 'Yet another product',
-        category: 'categoryyyyy',
-        price: 2.01
-      }
-    ];
-
-    this.setState({products})
+    apiAccess.apiGet('product')
+      .then(res => {
+        this.setState({products: res.data});
+      });
   }
 
   render () {
