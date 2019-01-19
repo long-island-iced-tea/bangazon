@@ -31,6 +31,8 @@ class RegisterForm extends React.Component {
         user.firebaseId = fbUser.user.uid;
         // Create new customer in backend
 
+        // Go to homepage
+        this.props.history.push('/');
       })
       .catch(err => {
         this.setState({isError: true, error: err.message})

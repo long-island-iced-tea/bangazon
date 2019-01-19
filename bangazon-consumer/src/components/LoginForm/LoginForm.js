@@ -24,9 +24,11 @@ class LoginForm extends React.Component {
 
     // Send user to firebase auth method
     fb.auth.loginUser(user)
-      .then()
+      .then(() => {
+        this.props.history.push('/');
+      })
       .catch(err => {
-        this.setState({isError: true, error: err.message})
+        this.setState({isError: true, error: err.message});
       })
 
   }

@@ -37,10 +37,7 @@ class App extends Component {
     this.authListener();
   }
 
-  signOut = (e) => {
-    e.preventDefault();
-    this.setState({auth: false});
-  }
+  signOut = () => this.setState({auth: false});
 
   render() {
     return (
