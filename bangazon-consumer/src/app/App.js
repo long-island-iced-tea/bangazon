@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Navbar from '../components/Navbar/Navbar';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Navbar from '../components/Navbar/Navbar';
+import Footer from '../components/Footer/Footer';
 import LoginForm from '../components/LoginForm/LoginForm';
 import RegisterForm from '../components/RegisterForm/RegisterForm';
 import ProductLanding from '../components/ProductLanding/ProductLanding';
@@ -12,7 +13,8 @@ firebase.init();
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div className="App Site">
+      <div className="Site-content">
         <Navbar/>
         <BrowserRouter>
           <Switch>
@@ -21,6 +23,7 @@ class App extends Component {
             <Route path="/register" component={RegisterForm} />
           </Switch>
         </BrowserRouter>
+        </div>
         <Footer/>
       </div>
     );
