@@ -8,6 +8,7 @@
   }
   .desc {
     margin: 2em 0;
+    padding: 2em;
   }
   .price {
     font-weight: bold;
@@ -19,9 +20,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0 1em;
   }
   .product-footer {
     display: flex;
     justify-content: flex-end;
+    .btn {
+      font-size: 1.5em;
+    }
   }
 }

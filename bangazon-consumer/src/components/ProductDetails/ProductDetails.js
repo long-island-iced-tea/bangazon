@@ -26,14 +26,14 @@ class ProductDetails extends React.Component {
           <div className="category">
             <h4>{product.category}</h4>
           </div>
-          <div className="desc">
+          <div className="desc card">
             <p>{product.description}</p>
           </div>
           <div className="product-footer">
             <div className="price">{product.price}</div>
             {
               auth ? (
-                <button className="btn btn-primary">Add to Cart</button>
+                <button className="btn btn-primary"><i className="fas fa-cart-plus"></i></button>
               ) : null
             }
           </div>
