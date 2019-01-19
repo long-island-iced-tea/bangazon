@@ -5,7 +5,6 @@ import Footer from '../components/Footer/Footer';
 import LoginForm from '../components/LoginForm/LoginForm';
 import RegisterForm from '../components/RegisterForm/RegisterForm';
 import ProductLanding from '../components/ProductLanding/ProductLanding';
-import ProductCategories from '../components/ProductCategories/ProductCategories';
 import * as FIREBASE from 'firebase';
 import firebase from '../firebase/index';
 import './App.scss';
@@ -23,13 +22,16 @@ class App extends Component {
     this.authListener = FIREBASE.auth().onAuthStateChanged(user => {
       if (user) {
         // If user is logged in, set token in localStorage
+        localStorage.setItem('uid', user.uid);
         user.getIdToken().then(token => {
           localStorage.setItem('token', token);
           this.setState({auth: true});
         });
       }
       else {
-        this.setState({auth: false});
+        this.setState({ auth: false });
+        localStorage.removeItem('token');
+        localStorage.removeItem('uid');
       }
     });
   }
@@ -38,20 +40,22 @@ class App extends Component {
     this.authListener();
   }
 
+  signOut = () => this.setState({auth: false});
+
   render() {
     return (
       <div className="App Site">
       <div className="Site-content">
-        <Navbar/>
         <BrowserRouter>
-          <Switch>
-            <Route path="/" exact component={ProductLanding} />
-            <Route path="/login" component={LoginForm} />
-            <Route path="/register" component={RegisterForm} />
-            <Route path="/product/:id" render={(props) => <ProductDetails auth={this.state.auth} {...props} />} />
-            <Route path="/product" component={RegisterForm} />
-            <Route path="/category" coponent={ProductCategories}/>
-          </Switch>
+          <div>
+            <Navbar auth={this.state.auth} logOff={this.signOut}/>
+            <Switch>
+              <Route path="/" exact component={ProductLanding} />
+              <Route path="/login" component={LoginForm} />
+              <Route path="/register" component={RegisterForm} />
+              <Route path="/product/:id" render={(props) => <ProductDetails auth={this.state.auth} {...props} />} />
+            </Switch>
+          </div>
         </BrowserRouter>
         </div>
         <Footer/>

@@ -25,7 +25,14 @@ namespace BangazonInc.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var allProducts = _product.GetProduct();
+            var allProducts = _product.GetRecentProducts();
+            return Ok(allProducts);
+        }
+
+        [HttpGet("recent")]
+        public IActionResult GetRecentProducts()
+        {
+            var allProducts = _product.GetRecentProducts();
             return Ok(allProducts);
         }
 

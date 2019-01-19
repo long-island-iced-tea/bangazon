@@ -1,6 +1,7 @@
 import React from 'react';
 import './ProductLanding.scss';
 import Product from '../Product/Product';
+import apiAccess from '../../api-access/api';
 
 class ProductLanding extends React.Component {
 
@@ -13,47 +14,10 @@ class ProductLanding extends React.Component {
   }
 
   getNewestProducts = () => {
-    // provides dummy data, will replace with api call
-    const products = [
-      {
-        id: 1,
-        name: 'Super cool product',
-        category: 'Cat1',
-        price: 2.99,
-      },
-      {
-        id: 2,
-        name: 'Another awesome product',
-        category: 'Category1',
-        price: 9.99,
-      },
-      {
-        id: 3,
-        name: 'Yet another product',
-        category: 'categoryyyyy',
-        price: 0.83
-      },
-      {
-        id: 4,
-        name: 'Wowza',
-        category: 'cattt',
-        price: 0.99,
-      },
-      {
-        id: 5,
-        name: 'Long-named Product for your purchasing requirements',
-        category: 'Category1',
-        price: 4.99,
-      },
-      {
-        id: 6,
-        name: 'Yet another product',
-        category: 'categoryyyyy',
-        price: 2.01
-      }
-    ];
-
-    this.setState({products})
+    apiAccess.apiGet('product/recent')
+      .then(res => {
+        this.setState({products: res.data});
+      });
   }
 
   render () {
