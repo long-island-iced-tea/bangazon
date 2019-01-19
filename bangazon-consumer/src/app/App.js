@@ -22,13 +22,16 @@ class App extends Component {
     this.authListener = FIREBASE.auth().onAuthStateChanged(user => {
       if (user) {
         // If user is logged in, set token in localStorage
+        localStorage.setItem('uid', user.uid);
         user.getIdToken().then(token => {
           localStorage.setItem('token', token);
           this.setState({auth: true});
         });
       }
       else {
-        this.setState({auth: false});
+        this.setState({ auth: false });
+        localStorage.removeItem('token');
+        localStorage.removeItem('uid');
       }
     });
   }

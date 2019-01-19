@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BangazonInc.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController, Authorize]
+    [ApiController]
     
     public class ConsumerController : ControllerBase
     {
@@ -20,8 +20,6 @@ namespace BangazonInc.Controllers
         CustomerStorage _user;
         OrderAccess _orders;
 
-
-
         public ConsumerController(DatabaseInterface db)
         {
             _db = db;
@@ -29,6 +27,7 @@ namespace BangazonInc.Controllers
             _user = new CustomerStorage(db);
             _orders = new OrderAccess(db);
         }
+
         //products GET: Gets all products
         [HttpGet("products")]
         public IActionResult Get()
@@ -47,10 +46,10 @@ namespace BangazonInc.Controllers
 
         //products? q = GET: Search products, has q as a parameter
 
-        [HttpGet("products")]
-        public IActionResult Get(string q)
+        [HttpGet("products/search")]
+        public IActionResult Get([FromQuery] string q)
         {
-                return Ok(_product.GetProductsByTerm(q));  
+                return Ok();  
         }
 
         //products/category GET: Gets products sorted by product type
