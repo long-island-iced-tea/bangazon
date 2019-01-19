@@ -16,12 +16,30 @@ namespace BangazonInc.DataAccess
             _db = db;
         }
         // Get ALL PRODUCTS
-        public List<Product> GetProduct()
+        public List<Product> GetProducts()
         {
             using(var db= _db.GetConnection())
             {
                 string sql = "SELECT * FROM PRODUCTS";
                 return db.Query<Product>(sql).ToList();
+            }
+        }
+
+        // Get recent PRODUCTS
+        public List<UpdatedProduct> GetRecentProducts()
+        {
+            using (var db = _db.GetConnection())
+            {
+                string sql = @"select top 20 
+                                 prod.Name name,
+                                 prod.description description,
+                                 prod.price price,
+                                 pt.Name category
+                               from Products prod
+                               join ProductTypes pt 
+                                 on prod.productType = pt.id
+                               order by prod.id DESC";
+                return db.Query<UpdatedProduct>(sql).ToList();
             }
         }
 
