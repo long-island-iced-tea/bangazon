@@ -36,6 +36,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <h1>The user is authed: {this.state.auth.toString()}</h1>
         <BrowserRouter>
           <Switch>
             <Route path="/" exact component={ProductLanding} />

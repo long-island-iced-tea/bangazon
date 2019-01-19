@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import fb from '../../firebase/index';
 import './LoginForm.scss';
 
 class LoginForm extends React.Component {
@@ -22,7 +23,11 @@ class LoginForm extends React.Component {
     const { user } = this.state;
 
     // Send user to firebase auth method
-    console.log(user);
+    fb.auth.loginUser(user)
+      .then()
+      .catch(err => {
+        this.setState({isError: true, error: err.message})
+      })
 
   }
 
@@ -33,14 +38,19 @@ class LoginForm extends React.Component {
         <div className="container">
           <div className="row justify-content-center">
             <form className='card' onSubmit={this.submitLogin}>
-              <div class="form-group">
+              <div className="form-group">
                 <label for="email">Email address</label>
                 <input type="email" id="email" className="form-control" placeholder="Enter email" value={this.state.user.email} onChange={this.onInputChange} />
               </div>
-              <div class="form-group">
+              <div className="form-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" className="form-control" placeholder="Password" value={this.state.user.password} onChange={this.onInputChange} />
               </div>
+              {
+                this.state.isError ? (
+                  <div className="alert alert-danger">{this.state.error}</div>
+                ) : null
+              }
               <button type="submit" className="btn btn-primary">Login</button>
               <small><Link to="/register">Don't have an account?</Link></small>
             </form>
