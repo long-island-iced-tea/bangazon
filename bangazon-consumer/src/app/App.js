@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.scss';
+import firebase from '../firebase/index';
+
+firebase.init();
+
+
 
 class App extends Component {
   render() {
