@@ -14,5 +14,6 @@ namespace BangazonInc.Models
         public bool IsActive { get; set; }
         public IEnumerable<Product> Products { get; set; }
         public IEnumerable<PaymentType> Payments { get; set; }
+        public string FirebaseId { get; set; }
     }
 }

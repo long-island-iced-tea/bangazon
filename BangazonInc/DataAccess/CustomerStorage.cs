@@ -88,7 +88,8 @@ namespace BangazonInc.DataAccess
                             VALUES (@firstName,
                                     @lastName,
                                     GETDATE(),
-                                    1)";
+                                    1,
+                                    @firebaseId)";
                 var result = db.Execute(sql, newCustomer);
                 return result == 1;
             }

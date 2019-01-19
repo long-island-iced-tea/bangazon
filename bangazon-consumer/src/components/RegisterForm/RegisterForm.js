@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import fb from '../../firebase/index';
 import './RegisterForm.scss';
+import api from '../../api-access/api';
 
 class RegisterForm extends React.Component {
 
@@ -29,8 +30,13 @@ class RegisterForm extends React.Component {
       .then(fbUser => {
         // Add firebase uid to user object
         user.firebaseId = fbUser.user.uid;
-        // Create new customer in backend
 
+        const newCustomer = {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          firebaseId: user.firebaseId
+        }
+        api.apiPost("consumer/register", newCustomer).then(console.log);
       })
       .catch(err => {
         this.setState({isError: true, error: err.message})
