@@ -22,8 +22,8 @@ class ProductLanding extends React.Component {
   render () {
     return (
       <div className='ProductLanding'>
-        <h1 className="bangazon">Welcome to Bangazon!</h1>
-        <h2 className="title">Newest Products</h2>
+        <h1 className="bangazon text-center">Welcome to Bangazon!</h1>
+        <h2 className="title text-center">Newest Products</h2>
         <div className="container">
           <div className="row">
             {
