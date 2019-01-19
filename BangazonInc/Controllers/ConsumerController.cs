@@ -72,7 +72,6 @@ namespace BangazonInc.Controllers
 
         //register GET: new customer with firebase uid
         [HttpPost("register")]
-        [Authorize]
         public IActionResult AddCustomer(Customer newCustomer)
         {
             var success = _user.AddNew(newCustomer);
