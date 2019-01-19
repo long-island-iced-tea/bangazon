@@ -5,6 +5,7 @@ import LoginForm from '../components/LoginForm/LoginForm';
 import RegisterForm from '../components/RegisterForm/RegisterForm';
 import ProductLanding from '../components/ProductLanding/ProductLanding';
 import firebase from '../firebase/index';
+import ProductDetails from '../components/ProductDetails/ProductDetails';
 
 firebase.init();
 
@@ -17,6 +18,7 @@ class App extends Component {
             <Route path="/" exact component={ProductLanding} />
             <Route path="/login" component={LoginForm} />
             <Route path="/register" component={RegisterForm} />
+            <Route path="/product/:id" component={ProductDetails} />
           </Switch>
         </BrowserRouter>
       </div>
