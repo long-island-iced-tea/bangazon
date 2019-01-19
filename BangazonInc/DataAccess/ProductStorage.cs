@@ -45,12 +45,12 @@ namespace BangazonInc.DataAccess
         }
 
         // GET SINGLE PRODUCT
-        public Product GetProductById(int ProductId)
+        public UpdatedProduct GetProductById(int ProductId)
         {
             using (var db = _db.GetConnection())
             {
-                var sql = db.QueryFirstOrDefault<Product>(@"SELECT * 
-                                                            FROM PRODUCTS WHERE Id = @id", new { id = ProductId});
+                var sql = db.QueryFirstOrDefault<UpdatedProduct>(@"SELECT p.*, pt.name category 
+                                                            FROM PRODUCTS p JOIN PRODUCTTYPES pt ON p.producttype = pt.id WHERE p.Id = @id", new { id = ProductId});
                 return sql;
             }
         }
