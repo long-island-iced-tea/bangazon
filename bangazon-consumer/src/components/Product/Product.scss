@@ -1,0 +1,30 @@
+.Product {
+  text-align: left;
+  padding: 1em;
+  margin: 2em;
+  .price {
+    position: absolute;
+    top: -50%;
+    right: -1em;
+    height: 5em;
+    width: 5em;
+    border-radius: 50%;
+    background-color: yellow;
+    border: 1px solid darken(yellow, 10%);
+    padding: 1em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .name {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+    width: 80%;
+  }
+  .category {
+    font-style: italic;
+  }
+}
