@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import fb from '../../firebase/index';
 import './RegisterForm.scss';
 
 class RegisterForm extends React.Component {
@@ -24,7 +25,16 @@ class RegisterForm extends React.Component {
     const { user } = this.state;
 
     // Send user to firebase auth method
-    console.log(user);
+    fb.auth.registerUser(user)
+      .then(fbUser => {
+        // Add firebase uid to user object
+        user.firebaseId = fbUser.user.uid;
+        // Create new customer in backend
+
+      })
+      .catch(err => {
+        this.setState({isError: true, error: err.message})
+      })
 
   }
   render () {
@@ -34,24 +44,29 @@ class RegisterForm extends React.Component {
         <div className="container">
           <div className="row justify-content-center">
             <form className='card' onSubmit={this.submitRegistration}>
-              <div class="form-group">
-                <label for="email">Email address</label>
+              <div className="form-group">
+                <label htmlFor="email">Email address</label>
                 <input type="email" id="email" className="form-control" placeholder="Enter email" value={this.state.user.email} onChange={this.onInputChange} />
               </div>
-              <div class="form-group">
-                <label for="password">Password</label>
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
                 <input type="password" id="password" className="form-control" placeholder="Password" value={this.state.user.password} onChange={this.onInputChange} />
               </div>
               <div className="form-row">
-                <div class="form-group col">
-                  <label for="firstName">First Name</label>
+                <div className="form-group col">
+                  <label htmlFor="firstName">First Name</label>
                   <input type="text" id="firstName" className="form-control" placeholder="John" value={this.state.user.firstName} onChange={this.onInputChange} />
                 </div>
-                <div class="form-group col">
-                  <label for="lastName">Last Name</label>
+                <div className="form-group col">
+                  <label htmlFor="lastName">Last Name</label>
                   <input type="text" id="lastName" className="form-control" placeholder="Smith" value={this.state.user.lastName} onChange={this.onInputChange} />
                 </div>
               </div>
+              {
+                this.state.isError ? (
+                  <div className="alert alert-danger">{this.state.error}</div>
+                ) : null
+              }
               <button type="submit" className="btn btn-primary">Register</button>
               <small><Link to="/login">Already registered?</Link></small>
             </form>
