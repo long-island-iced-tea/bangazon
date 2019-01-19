@@ -1,0 +1,32 @@
+.ProductDetails {
+  .title {
+    font-size: 3em;
+  }
+  .category {
+    font-size: 1em;
+    font-style: italic;
+  }
+  .desc {
+    margin: 2em 0;
+    padding: 2em;
+  }
+  .price {
+    font-weight: bold;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: yellow;
+    border: 1px solid darken(yellow, 10%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 1em;
+  }
+  .product-footer {
+    display: flex;
+    justify-content: flex-end;
+    .btn {
+      font-size: 1.5em;
+    }
+  }
+}
