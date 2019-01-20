@@ -14,8 +14,16 @@ import ProductDetails from '../components/ProductDetails/ProductDetails';
 firebase.init();
 
 class App extends Component {
+
   state = {
-    auth: false
+    auth: false,
+    cart: []
+  }
+
+  addToCart = (product) => {
+    const {cart} = {...this.state};
+    cart.push(product);
+    this.setState({cart, auth: this.state.auth})
   }
 
   componentDidMount() {
@@ -53,7 +61,7 @@ class App extends Component {
               <Route path="/" exact component={ProductLanding} />
               <Route path="/login" component={LoginForm} />
               <Route path="/register" component={RegisterForm} />
-              <Route path="/product/:id" render={(props) => <ProductDetails auth={this.state.auth} {...props} />} />
+              <Route path="/product/:id" render={(props) => <ProductDetails auth={this.state.auth} addToCart={this.addToCart} {...props} />} />
             </Switch>
           </div>
         </BrowserRouter>
