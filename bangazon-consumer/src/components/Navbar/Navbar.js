@@ -11,6 +11,13 @@ class Navbar extends React.Component {
         this.props.logOff();
     }
 
+    totalItemsInCart = () => {
+        const {cart} = this.props;
+        return cart.reduce((total, product) => {
+            return total + product.quantity;
+        }, 0) || null;
+    }
+
     render () {
         return (
             <div>
@@ -34,7 +41,10 @@ class Navbar extends React.Component {
                     {
                         this.props.auth ? (
                             <div>
-                                <Link to="/cart" className="btn btn-outline-success my-2 my-sm-0">Cart</Link>
+                                <Link to="/cart" className="btn btn-outline-success my-2 my-sm-0">
+                                    Cart
+                                    <span class="badge badge-light">{this.totalItemsInCart()}</span>
+                                </Link>
                                 <button className="btn btn-outline-success my-2 my-sm-0" onClick={this.signOut}>Logout</button>
                             </div>
                         ) : (

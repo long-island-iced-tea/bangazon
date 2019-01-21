@@ -82,7 +82,7 @@ class App extends Component {
       <div className="Site-content">
         <BrowserRouter>
           <div>
-            <Navbar auth={this.state.auth} logOff={this.signOut}/>
+            <Navbar auth={this.state.auth} logOff={this.signOut} cart={this.state.cart}/>
             <Switch>
               <Route path="/" exact component={ProductLanding} />
               <Route path="/login" component={LoginForm} />
