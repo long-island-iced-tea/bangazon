@@ -4,10 +4,16 @@ import './Navbar.scss';
 import fb from '../../firebase/index';
 
 class Navbar extends React.Component {
+
     signOut = (e) => {
         e.preventDefault();
         fb.auth.logoutUser();
         this.props.logOff();
+    }
+
+    viewCart = (e) => {
+        e.preventDefault();
+        this.props.history.push('/cart');
     }
     render () {
         return (
@@ -32,7 +38,7 @@ class Navbar extends React.Component {
                     {
                         this.props.auth ? (
                             <div>
-                                <button className="btn btn-outline-success my-2 my-sm-0">Cart</button>
+                                <Link to="/cart" className="btn btn-outline-success my-2 my-sm-0">Cart</Link>
                                 <button className="btn btn-outline-success my-2 my-sm-0" onClick={this.signOut}>Logout</button>
                             </div>
                         ) : (

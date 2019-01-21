@@ -32,6 +32,7 @@ class ProductDetails extends React.Component {
   showSuccess = () => {
     const state = {...this.state};
     state.isAdded = true;
+    // Sets state.isAdded back to false after 2 seconds
     this.setState(state, () => {
       setTimeout(() => {
         state.isAdded = false;

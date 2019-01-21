@@ -9,6 +9,7 @@ import * as FIREBASE from 'firebase';
 import firebase from '../firebase/index';
 import './App.scss';
 import ProductDetails from '../components/ProductDetails/ProductDetails';
+import CartPage from '../components/CartPage/CartPage';
 
 
 firebase.init();
@@ -62,6 +63,7 @@ class App extends Component {
               <Route path="/login" component={LoginForm} />
               <Route path="/register" component={RegisterForm} />
               <Route path="/product/:id" render={(props) => <ProductDetails auth={this.state.auth} addToCart={this.addToCart} {...props} />} />
+              <Route path="/cart" render={(props) => <CartPage cart={this.state.cart} {...props} /> } />
             </Switch>
           </div>
         </BrowserRouter>
