@@ -23,7 +23,17 @@ class App extends Component {
 
   addToCart = (product) => {
     const {cart} = {...this.state};
-    cart.push(product);
+    // Try to find item in cart
+    const itemInCart = cart.find(p => p.id === product.id) || null;
+    // If item is already in cart, increment the quantity
+    // Else, push to cart
+    if (itemInCart !== null) {
+      itemInCart.quantity++;
+    }
+    else {
+      cart.push(product);
+    }
+
     this.setState({cart, auth: this.state.auth})
   }
 

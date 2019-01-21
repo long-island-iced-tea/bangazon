@@ -11,10 +11,6 @@ class Navbar extends React.Component {
         this.props.logOff();
     }
 
-    viewCart = (e) => {
-        e.preventDefault();
-        this.props.history.push('/cart');
-    }
     render () {
         return (
             <div>
