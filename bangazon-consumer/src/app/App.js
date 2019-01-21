@@ -33,8 +33,20 @@ class App extends Component {
     else {
       cart.push(product);
     }
+    // Update state, then update localStorage
+    this.setState({cart, auth: this.state.auth}, this.updateCartStorage)
+  }
 
-    this.setState({cart, auth: this.state.auth})
+  updateCartStorage = () => {
+    const {cart} = this.state;
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+
+  loadCart = () => {
+    const cart = localStorage.getItem('cart');
+    if (cart !== null) {
+      this.setState({cart: JSON.parse(cart)});
+    }
   }
 
   componentDidMount() {
@@ -53,6 +65,9 @@ class App extends Component {
         localStorage.removeItem('uid');
       }
     });
+
+    // Load cart from localStorage
+    this.loadCart();
   }
 
   componentWillUnmount() {
