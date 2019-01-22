@@ -12,7 +12,7 @@ class CartPage extends React.Component {
     return cartTotal.toFixed(2);
   }
   render () {
-    const {cart, removeFromCart} = this.props;
+    const {cart, removeFromCart, updateQuantity} = this.props;
     return (
       <div className='CartPage'>
         <h2 className="text-center">My Cart</h2>
@@ -26,7 +26,7 @@ class CartPage extends React.Component {
           </div>
           <div className="card-body">
             {
-              cart.map(product => <CartItem key={product.id} product={product} removeFromCart={removeFromCart} />)
+              cart.map(product => <CartItem key={product.id} product={product} updateQuantity={updateQuantity} removeFromCart={removeFromCart} />)
             }
             <div className="row">
               <div className="col-8"></div>
