@@ -16,7 +16,8 @@ firebase.init();
 
 class App extends Component {
   state = {
-    auth: false
+    auth: false,
+    user: {}
   }
 
   componentDidMount() {
@@ -26,7 +27,7 @@ class App extends Component {
         localStorage.setItem('uid', user.uid);
         user.getIdToken().then(token => {
           localStorage.setItem('token', token);
-          this.setState({auth: true});
+          this.setState({ auth: true });
         });
       }
       else {
@@ -41,7 +42,9 @@ class App extends Component {
     this.authListener();
   }
 
-  signOut = () => this.setState({auth: false});
+  signOut = () => this.setState({ auth: false, user: null });
+
+  signIn = (user) => this.setState({ auth: true, user: user });
 
   render() {
     return (
@@ -60,7 +63,7 @@ class App extends Component {
           </div>
         </BrowserRouter>
         </div>
-        <Footer/>
+        <Footer />
       </div>
     );
   }

@@ -14,7 +14,7 @@ class ProductLanding extends React.Component {
   }
 
   getNewestProducts = () => {
-    apiAccess.apiGet('product/recent')
+    apiAccess.apiGet('consumer/products/recent')
       .then(res => {
         this.setState({products: res.data});
       });

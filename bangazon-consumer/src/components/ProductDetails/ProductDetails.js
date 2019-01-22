@@ -1,5 +1,6 @@
 import React from 'react';
 import './ProductDetails.scss';
+import api from '../../api-access/api';
 
 class ProductDetails extends React.Component {
 
@@ -14,6 +15,11 @@ class ProductDetails extends React.Component {
 
   componentDidMount() {
     const id = this.props.match.params.id;
+    api.apiGet('consumer/products/' + id)
+      .then(product => {
+        product = product.data;
+        this.setState({product})
+      });
   }
 
   render () {
