@@ -32,7 +32,7 @@ namespace BangazonInc.Controllers
         [HttpGet("products")]
         public IActionResult Get()
         {
-            var allProducts = _product.GetProduct();
+            var allProducts = _product.GetRecentProducts();
             return Ok(allProducts);
         }
 
@@ -41,7 +41,8 @@ namespace BangazonInc.Controllers
         [HttpGet("products/recent")]
         public IActionResult GetRecentProducts()
         {
-            return Ok();
+            var recentProducts = _product.GetRecentProducts();
+            return Ok(recentProducts);
         }
 
         //products? q = GET: Search products, has q as a parameter

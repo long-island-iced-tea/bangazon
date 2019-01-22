@@ -15,7 +15,8 @@ firebase.init();
 
 class App extends Component {
   state = {
-    auth: false
+    auth: false,
+    user: {}
   }
 
   componentDidMount() {
@@ -40,18 +41,24 @@ class App extends Component {
     this.authListener();
   }
 
+  signOut = () => this.setState({ auth: false, user: null });
+  
+  signIn = (user) => this.setState({ auth: true, user: user });
+
   render() {
     return (
       <div className="App Site">
       <div className="Site-content">
-        <Navbar/>
         <BrowserRouter>
-          <Switch>
-            <Route path="/" exact component={ProductLanding} />
-            <Route path="/login" component={LoginForm} />
-            <Route path="/register" component={RegisterForm} />
-            <Route path="/product/:id" render={(props) => <ProductDetails auth={this.state.auth} {...props} />} />
-          </Switch>
+          <div>
+            <Navbar auth={this.state.auth} logOff={this.signOut}/>
+            <Switch>
+              <Route path="/" exact component={ProductLanding} />
+              <Route path="/login" component={LoginForm} signin={this.signIn} />
+              <Route path="/register" component={RegisterForm} signin={this.signIn}/>
+              <Route path="/product/:id" render={(props) => <ProductDetails auth={this.state.auth} {...props} />} />
+            </Switch>
+          </div>
         </BrowserRouter>
         </div>
         <Footer/>

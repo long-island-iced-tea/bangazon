@@ -16,7 +16,7 @@ namespace BangazonInc.DataAccess
             _db = db;
         }
         // Get ALL PRODUCTS
-        public List<Product> GetProduct()
+        public List<Product> GetProducts()
         {
             using(var db= _db.GetConnection())
             {
@@ -25,13 +25,32 @@ namespace BangazonInc.DataAccess
             }
         }
 
-        // GET SINGLE PRODUCT
-        public Product GetProductById(int ProductId)
+        // Get recent PRODUCTS
+        public List<UpdatedProduct> GetRecentProducts()
         {
             using (var db = _db.GetConnection())
             {
-                var sql = db.QueryFirstOrDefault<Product>(@"SELECT * 
-                                                            FROM PRODUCTS WHERE Id = @id", new { id = ProductId});
+                string sql = @"select top 20 
+                                 prod.Id id,
+                                 prod.Name name,
+                                 prod.description description,
+                                 prod.price price,
+                                 pt.Name category
+                               from Products prod
+                               join ProductTypes pt 
+                                 on prod.productType = pt.id
+                               order by prod.id DESC";
+                return db.Query<UpdatedProduct>(sql).ToList();
+            }
+        }
+
+        // GET SINGLE PRODUCT
+        public UpdatedProduct GetProductById(int ProductId)
+        {
+            using (var db = _db.GetConnection())
+            {
+                var sql = db.QueryFirstOrDefault<UpdatedProduct>(@"SELECT p.*, pt.name category 
+                                                            FROM PRODUCTS p JOIN PRODUCTTYPES pt ON p.producttype = pt.id WHERE p.Id = @id", new { id = ProductId});
                 return sql;
             }
         }

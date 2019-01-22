@@ -36,7 +36,10 @@ class RegisterForm extends React.Component {
           lastName: user.lastName,
           firebaseId: user.firebaseId
         }
-        api.apiPost("consumer/register", newCustomer).then(console.log);
+        api.apiPost("consumer/register", newCustomer).then(newCustomer => {
+          this.signin(newCustomer);
+          this.props.history.push('/');
+        });
       })
       .catch(err => {
         this.setState({isError: true, error: err.message})
