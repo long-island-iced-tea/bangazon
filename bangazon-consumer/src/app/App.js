@@ -15,7 +15,8 @@ firebase.init();
 
 class App extends Component {
   state = {
-    auth: false
+    auth: false,
+    user: {}
   }
 
   componentDidMount() {
@@ -25,7 +26,7 @@ class App extends Component {
         localStorage.setItem('uid', user.uid);
         user.getIdToken().then(token => {
           localStorage.setItem('token', token);
-          this.setState({auth: true});
+          this.setState({ auth: true });
         });
       }
       else {
@@ -40,25 +41,27 @@ class App extends Component {
     this.authListener();
   }
 
-  signOut = () => this.setState({auth: false});
+  signOut = () => this.setState({ auth: false, user: null });
+
+  signIn = (user) => this.setState({ auth: true, user: user });
 
   render() {
     return (
       <div className="App Site">
-      <div className="Site-content">
-        <BrowserRouter>
-          <div>
-            <Navbar auth={this.state.auth} logOff={this.signOut}/>
-            <Switch>
-              <Route path="/" exact component={ProductLanding} />
-              <Route path="/login" component={LoginForm} />
-              <Route path="/register" component={RegisterForm} />
-              <Route path="/product/:id" render={(props) => <ProductDetails auth={this.state.auth} {...props} />} />
-            </Switch>
-          </div>
-        </BrowserRouter>
+        <div className="Site-content">
+          <BrowserRouter>
+            <div>
+              <Navbar auth={this.state.auth} logOff={this.signOut} />
+              <Switch>
+                <Route path="/" exact component={ProductLanding} />
+                <Route path="/login" render={(props) => <LoginForm {...props} signin={this.signIn} />} />
+                <Route path="/register" render={(props) => <RegisterForm {...props} signin={this.signIn} />} />
+                <Route path="/product/:id" render={(props) => <ProductDetails auth={this.state.auth} {...props} />} />
+              </Switch>
+            </div>
+          </BrowserRouter>
         </div>
-        <Footer/>
+        <Footer />
       </div>
     );
   }

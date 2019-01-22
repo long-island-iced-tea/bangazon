@@ -61,17 +61,13 @@ namespace BangazonInc.Controllers
         [HttpPost]
         public IActionResult AddCustomer(Customer newCustomer)
         {
-            var success = _customers.AddNew(newCustomer);
-            
-            if (success)
-            {
-                return Ok();
-            }
-            else
-            {
-                return BadRequest();
-            }
+            var insertedCustomer = _customers.AddNew(newCustomer);
+
+            return insertedCustomer == default(Customer)
+                ? BadRequest() as IActionResult
+                : Ok(insertedCustomer);
         }
+
         [HttpPut]
         public IActionResult UpdateCustomer(Customer newCustomer)
         {

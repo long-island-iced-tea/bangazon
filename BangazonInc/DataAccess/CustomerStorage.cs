@@ -10,10 +10,12 @@ namespace BangazonInc.DataAccess
     public class CustomerStorage
     {
         DatabaseInterface _db;
+        PaymentTypeStorage _pt;
 
         public CustomerStorage(DatabaseInterface db)
         {
             _db = db;
+            _pt = new PaymentTypeStorage(_db);
         }
 
         public List<Customer> GetCustomers()
@@ -31,6 +33,21 @@ namespace BangazonInc.DataAccess
             {
                 string sql = "SELECT * FROM Customers WHERE Id = @id";
                 return db.QueryFirstOrDefault<Customer>(sql, new { id });
+            }
+        }
+
+        public async Task<Customer> GetCustomerByFirebaseIdWithPaymentTypesAsync(string firebaseId)
+        {
+            using (var db = _db.GetConnection())
+            {
+                string custSql = "SELECT * FROM Customers WHERE firebaseId = @firebaseId";
+                var cust = await db.QueryFirstOrDefaultAsync<Customer>(custSql, new { firebaseId });
+                if (cust == default(Customer)) return cust;
+
+                var payments = await _pt.GetPaymentTypesByCustomerId(cust.Id);
+                cust.Payments = payments;
+
+                return cust;
             }
         }
 
@@ -79,18 +96,20 @@ namespace BangazonInc.DataAccess
 
         }
 
-        public bool AddNew(Customer newCustomer)
+        public Customer AddNew(Customer newCustomer)
         {
             using (var db = _db.GetConnection())
             {
                 string sql = @"
                             INSERT INTO Customers
+                            OUTPUT Inserted.*
                             VALUES (@firstName,
                                     @lastName,
                                     GETDATE(),
-                                    1)";
-                var result = db.Execute(sql, newCustomer);
-                return result == 1;
+                                    1,
+                                    @firebaseId)";
+                var result = db.QueryFirstOrDefault<Customer>(sql, newCustomer);
+                return result;
             }
         }
 
