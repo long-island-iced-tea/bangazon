@@ -70,20 +70,15 @@ namespace BangazonInc.Controllers
             return Ok(user);
         }
 
-        //register GET: new customer with firebase uid
+        //register POST: new customer with firebase uid
         [HttpPost("register")]
         public IActionResult AddCustomer(Customer newCustomer)
         {
-            var success = _user.AddNew(newCustomer);
+            var insertedCustomer = _user.AddNew(newCustomer);
 
-            if (success)
-            {
-                return Ok();
-            }
-            else
-            {
-                return BadRequest();
-            }
+            return insertedCustomer == default(Customer)
+                ? BadRequest() as IActionResult
+                : Ok(insertedCustomer);
         }
         //order POST adds new order and productorders
         [HttpPost("order")]
