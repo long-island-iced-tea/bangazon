@@ -5,6 +5,7 @@ import Footer from '../components/Footer/Footer';
 import LoginForm from '../components/LoginForm/LoginForm';
 import RegisterForm from '../components/RegisterForm/RegisterForm';
 import ProductLanding from '../components/ProductLanding/ProductLanding';
+import Search from '../components/Search/Search';
 import * as FIREBASE from 'firebase';
 import firebase from '../firebase/index';
 import './App.scss';
@@ -15,8 +16,15 @@ firebase.init();
 
 class App extends Component {
   state = {
-    auth: false
+    auth: false,
+    searchTerm: '',
   }
+
+  searchHandler = (searchTerm) => {
+    this.setState({searchTerm});
+  };
+
+
 
   componentDidMount() {
     this.authListener = FIREBASE.auth().onAuthStateChanged(user => {
@@ -48,10 +56,11 @@ class App extends Component {
       <div className="Site-content">
         <BrowserRouter>
           <div>
-            <Navbar auth={this.state.auth} logOff={this.signOut}/>
+            <Navbar auth={this.state.auth} logOff={this.signOut} searchHandler={this.searchHandler}{...this.state}/>
             <Switch>
               <Route path="/" exact component={ProductLanding} />
               <Route path="/login" component={LoginForm} />
+              <Route path='/search' component={Search}{...this.state} />
               <Route path="/register" component={RegisterForm} />
               <Route path="/product/:id" render={(props) => <ProductDetails auth={this.state.auth} {...props} />} />
             </Switch>
