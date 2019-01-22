@@ -6,7 +6,7 @@ class CartPage extends React.Component {
   calculateTotal = () => {
     const {cart} = this.props;
     const cartTotal = cart.reduce((total, product) => {
-      return total + product.price;
+      return total + (product.price * product.quantity);
     }, 0);
 
     return cartTotal.toFixed(2);
