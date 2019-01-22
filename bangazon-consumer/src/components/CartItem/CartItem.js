@@ -27,7 +27,7 @@ class CartItem extends React.Component {
           <div className="quantity col">
             <input className="form-control" type="number" name="quantity" value={product.quantity} onChange={this.updateQuantity}/>
           </div>
-          <button className="close" onClick={this.removeItem}>&times;</button>
+          <button className="close" onClick={this.removeItem}><i className="fas fa-trash-alt"></i></button>
         </div>
       </div>
     );
