@@ -19,6 +19,7 @@ namespace BangazonInc.Controllers
         ProductStorage _product;
         CustomerStorage _user;
         OrderAccess _orders;
+        ProductTypeStorage _productTypes;
 
         public ConsumerController(DatabaseInterface db)
         {
@@ -26,6 +27,7 @@ namespace BangazonInc.Controllers
             _product = new ProductStorage(db);
             _user = new CustomerStorage(db);
             _orders = new OrderAccess(db);
+            _productTypes = new ProductTypeStorage(db);
         }
 
         //products GET: Gets all products
@@ -55,6 +57,11 @@ namespace BangazonInc.Controllers
 
         //products/category GET: Gets products sorted by product type
         [HttpGet("products/category")]
+        public IActionResult GetProdCatById (int id)
+        {
+            var singleCat = _productTypes.GetById(id);
+            return Ok(singleCat);
+        }
 
         //GET: Gets product by Id
         [HttpGet("products/{id}")]
