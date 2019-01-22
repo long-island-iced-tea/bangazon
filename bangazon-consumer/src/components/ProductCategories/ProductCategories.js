@@ -1,5 +1,6 @@
 import React from 'react';
 import './ProductCategories.scss';
+import Product from '../Product/Product';
 
 class ProductCategories extends React.Component {
 
@@ -74,7 +75,7 @@ class ProductCategories extends React.Component {
                     },
                     {
                         "id": "2",
-                        "name" : "produc2",
+                        "name" : "product2",
                         "category" : "category3",
                         "price" : "9.99"
                     },
@@ -98,7 +99,7 @@ class ProductCategories extends React.Component {
                     },
                     {
                         "id": "2",
-                        "name" : "produc2",
+                        "name" : "product2",
                         "category" : "category4",
                         "price" : "9.99"
                     },
@@ -113,13 +114,25 @@ class ProductCategories extends React.Component {
         ];
         this.setState({productCats});
     }
-
-
-
     render () {
         return (
-            <div className="container">
-            
+            <div className="ProductCategories">
+                <h2 className="text-center"> Product Categories</h2>
+                <div className="container">
+                 <div className="row">
+                    {
+                        this.state.productCats.map(
+                            cats=> 
+                            <div  className="col-sm category-card">
+                                <h2>{cats.name}</h2>
+                                <h3>{cats.products.map((product =>{
+                                    return (<li>{product.name}</li>)
+                                }))}</h3>
+                            </div>
+                            )
+                    }
+                </div>
+            </div>
             </div>
         );
     }

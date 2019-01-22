@@ -5,6 +5,7 @@ import Footer from '../components/Footer/Footer';
 import LoginForm from '../components/LoginForm/LoginForm';
 import RegisterForm from '../components/RegisterForm/RegisterForm';
 import ProductLanding from '../components/ProductLanding/ProductLanding';
+import ProductCategory from '../components/ProductCategories/ProductCategories';
 import * as FIREBASE from 'firebase';
 import firebase from '../firebase/index';
 import './App.scss';
@@ -54,6 +55,7 @@ class App extends Component {
               <Route path="/login" component={LoginForm} />
               <Route path="/register" component={RegisterForm} />
               <Route path="/product/:id" render={(props) => <ProductDetails auth={this.state.auth} {...props} />} />
+              <Route path = "/products/categories" component={ProductCategory}/>
             </Switch>
           </div>
         </BrowserRouter>
