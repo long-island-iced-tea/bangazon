@@ -37,6 +37,13 @@ class App extends Component {
     this.setState({cart, auth: this.state.auth}, this.updateCartStorage)
   }
 
+  removeFromCart = (productId) => {
+    let {cart} = {...this.state};
+    cart = cart.filter(p => p.id !== productId);
+    this.setState({cart}, this.updateCartStorage);
+
+  }
+
   updateCartStorage = () => {
     const {cart} = this.state;
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -88,7 +95,7 @@ class App extends Component {
               <Route path="/login" component={LoginForm} />
               <Route path="/register" component={RegisterForm} />
               <Route path="/product/:id" render={(props) => <ProductDetails auth={this.state.auth} addToCart={this.addToCart} {...props} />} />
-              <Route path="/cart" render={(props) => <CartPage cart={this.state.cart} {...props} /> } />
+              <Route path="/cart" render={(props) => <CartPage cart={this.state.cart} removeFromCart={this.removeFromCart} {...props} /> } />
             </Switch>
           </div>
         </BrowserRouter>
