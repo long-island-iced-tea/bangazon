@@ -18,11 +18,12 @@ class App extends Component {
 
   state = {
     auth: false,
+    user: {},
     cart: []
   }
 
   addToCart = (product) => {
-    const {cart} = {...this.state};
+    const { cart } = { ...this.state };
     // Try to find item in cart
     const itemInCart = cart.find(p => p.id === product.id) || null;
     // If item is already in cart, increment the quantity
@@ -34,32 +35,32 @@ class App extends Component {
       cart.push(product);
     }
     // Update state, then update localStorage
-    this.setState({cart, auth: this.state.auth}, this.updateCartStorage)
+    this.setState({ cart, auth: this.state.auth }, this.updateCartStorage)
   }
 
   removeFromCart = (productId) => {
-    let {cart} = {...this.state};
+    let { cart } = { ...this.state };
     cart = cart.filter(p => p.id !== productId);
-    this.setState({cart}, this.updateCartStorage);
+    this.setState({ cart }, this.updateCartStorage);
 
   }
 
   updateQuantity = (product) => {
-    const {cart} = {...this.state};
+    const { cart } = { ...this.state };
     const itemToUpdate = cart.find(p => p.id === product.id);
     itemToUpdate.quantity = product.quantity;
-    this.setState({cart}, this.updateCartStorage);
+    this.setState({ cart }, this.updateCartStorage);
   }
 
   updateCartStorage = () => {
-    const {cart} = this.state;
+    const { cart } = this.state;
     localStorage.setItem('cart', JSON.stringify(cart));
   }
 
   loadCart = () => {
     const cart = localStorage.getItem('cart');
     if (cart !== null) {
-      this.setState({cart: JSON.parse(cart)});
+      this.setState({ cart: JSON.parse(cart) });
     }
   }
 
@@ -70,7 +71,7 @@ class App extends Component {
         localStorage.setItem('uid', user.uid);
         user.getIdToken().then(token => {
           localStorage.setItem('token', token);
-          this.setState({auth: true});
+          this.setState({ auth: true });
         });
       }
       else {
@@ -88,26 +89,28 @@ class App extends Component {
     this.authListener();
   }
 
-  signOut = () => this.setState({auth: false});
+  signOut = () => this.setState({ auth: false, user: null });
+
+  signIn = (user) => this.setState({ auth: true, user: user });
 
   render() {
     return (
       <div className="App Site">
-      <div className="Site-content">
-        <BrowserRouter>
-          <div>
-            <Navbar auth={this.state.auth} logOff={this.signOut} cart={this.state.cart}/>
-            <Switch>
-              <Route path="/" exact component={ProductLanding} />
-              <Route path="/login" component={LoginForm} />
-              <Route path="/register" component={RegisterForm} />
-              <Route path="/product/:id" render={(props) => <ProductDetails auth={this.state.auth} addToCart={this.addToCart} {...props} />} />
-              <Route path="/cart" render={(props) => <CartPage cart={this.state.cart} removeFromCart={this.removeFromCart} updateQuantity={this.updateQuantity} {...props} /> } />
-            </Switch>
-          </div>
-        </BrowserRouter>
+        <div className="Site-content">
+          <BrowserRouter>
+            <div>
+              <Navbar auth={this.state.auth} logOff={this.signOut} cart={this.state.cart} />
+              <Switch>
+                <Route path="/" exact component={ProductLanding} />
+                <Route path="/login" render={(props) => <LoginForm {...props} signin={this.signIn} />} />
+                <Route path="/register" render={(props) => <RegisterForm {...props} signin={this.signIn} />} />
+                <Route path="/product/:id" render={(props) => <ProductDetails auth={this.state.auth} addToCart={this.addToCart} {...props} />} />
+                <Route path="/cart" render={(props) => <CartPage cart={this.state.cart} removeFromCart={this.removeFromCart} updateQuantity={this.updateQuantity} {...props} />} />
+              </Switch>
+            </div>
+          </BrowserRouter>
         </div>
-        <Footer/>
+        <Footer />
       </div>
     );
   }

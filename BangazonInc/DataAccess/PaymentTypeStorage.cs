@@ -86,5 +86,16 @@ namespace BangazonInc.DataAccess
                 return result == 1;
             }
         }
+        /******************************
+         Get Payment Types For Customer
+        ******************************/
+        public async Task<IEnumerable<PaymentType>> GetPaymentTypesByCustomerId(int id)
+        {
+            using (var db = _db.GetConnection())
+            {
+                var sql = "SELECT * FROM PaymentType WHERE customerId = @id";
+                return await db.QueryAsync<PaymentType>(sql, new { id });
+            }
+        }
     }
 }
