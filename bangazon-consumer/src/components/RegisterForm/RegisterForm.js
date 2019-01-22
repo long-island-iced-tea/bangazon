@@ -36,8 +36,8 @@ class RegisterForm extends React.Component {
           lastName: user.lastName,
           firebaseId: user.firebaseId
         }
-        api.apiPost("consumer/register", newCustomer).then(newCustomer => {
-          this.signin(newCustomer);
+        api.apiPost("consumer/register", newCustomer).then(response => {
+          this.props.signin(response.data);
           this.props.history.push('/');
         });
       })

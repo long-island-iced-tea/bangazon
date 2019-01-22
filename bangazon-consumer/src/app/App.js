@@ -55,7 +55,7 @@ class App extends Component {
             <Switch>
               <Route path="/" exact component={ProductLanding} />
               <Route path="/login" component={LoginForm} signin={this.signIn} />
-              <Route path="/register" component={RegisterForm} signin={this.signIn}/>
+                <Route path="/register" render={(props) => <RegisterForm {...props} signin={this.signIn} />}/>
               <Route path="/product/:id" render={(props) => <ProductDetails auth={this.state.auth} {...props} />} />
             </Switch>
           </div>
