@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import fb from '../../firebase/index';
 import './LoginForm.scss';
+import api from '../../api-access/api';
 
 class LoginForm extends React.Component {
 
@@ -24,7 +25,10 @@ class LoginForm extends React.Component {
 
     // Send user to firebase auth method
     fb.auth.loginUser(user)
-      .then(() => {
+      .then((response) => {
+        api.apiGet(`consumer/login/${response.user.uid}`)
+          .then(apiResponse => this.props.signin(apiResponse.data))
+          .catch(err => console.error(err));
         this.props.history.push('/');
       })
       .catch(err => {

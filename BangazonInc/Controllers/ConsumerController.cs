@@ -65,9 +65,9 @@ namespace BangazonInc.Controllers
         }
 
         //login GET: returns the authenticated user by uid
-        [HttpGet("login")]
-        public IActionResult getUser(int id) {
-            var user = _user.GetCustomerById(id);
+        [HttpGet("login/{firebaseId}")]
+        public async Task<IActionResult> GetUserByFirebaseId(string firebaseId) {
+            var user = await _user.GetCustomerByFirebaseIdWithPaymentTypesAsync(firebaseId);
             return Ok(user);
         }
 
