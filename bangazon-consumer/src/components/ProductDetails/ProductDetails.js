@@ -6,11 +6,12 @@ class ProductDetails extends React.Component {
 
   state = {
     product: {
-      name: 'Product Name',
-      category: 'category name',
-      price: 0.99,
-      description: 'this is a description of the product.  it is a long description at that. with a lot of details and such.  weeeeeee'
-    }
+      name: '',
+      category: '',
+      price: 0,
+      description: ''
+    },
+    isAdded: false,
   }
 
   componentDidMount() {
@@ -20,6 +21,24 @@ class ProductDetails extends React.Component {
         product = product.data;
         this.setState({product})
       });
+  }
+  addToCart = (e) => {
+    const {product} = this.state;
+    const {addToCart} = this.props;
+    addToCart(product);
+    this.showSuccess();
+  }
+
+  showSuccess = () => {
+    const state = {...this.state};
+    state.isAdded = true;
+    // Sets state.isAdded back to false after 2 seconds
+    this.setState(state, () => {
+      setTimeout(() => {
+        state.isAdded = false;
+        this.setState(state);
+      }, 2000);
+    });
   }
 
   render () {
@@ -35,11 +54,14 @@ class ProductDetails extends React.Component {
           <div className="desc card">
             <p>{product.description}</p>
           </div>
+          {
+            this.state.isAdded ? ( <div className="alert alert-success">{product.name} added to cart.</div> ) : null
+          }
           <div className="product-footer">
             <div className="price">{product.price}</div>
             {
               auth ? (
-                <button className="btn btn-primary"><i className="fas fa-cart-plus"></i></button>
+                <button className="btn btn-primary" onClick={() => this.addToCart(product)}><i className="fas fa-cart-plus"></i></button>
               ) : null
             }
           </div>
