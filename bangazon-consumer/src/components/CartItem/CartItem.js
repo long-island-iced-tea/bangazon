@@ -23,7 +23,7 @@ class CartItem extends React.Component {
       <div className='CartItem'>
         <div className="row">
           <div className="name col">{product.name}</div>
-          <div className="price col">{product.price}</div>
+          <div className="price col">${product.price}</div>
           <div className="quantity col">
             <input className="form-control" type="number" name="quantity" value={product.quantity} onChange={this.updateQuantity}/>
           </div>
